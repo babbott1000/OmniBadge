@@ -2,7 +2,7 @@
 
 A School Pass System
 
-## Setup
+## Dependencies
 
 Before setup make sure that you have the latest version of Node and npm installed
 
