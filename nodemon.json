@@ -1,0 +1,9 @@
+{
+	"events": {
+		"start": ".\\node_modules\\.bin\\webpack --config webpack.prod.js"
+	},
+	"verbose": true,
+	"ignore": [
+	    "client"
+  	]
+}
