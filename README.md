@@ -1,4 +1,4 @@
-#BEN OPEN DISCORD - delete this after
+# BEN OPEN DISCORD - delete this after
 
 # Flash Pass EDU
 
