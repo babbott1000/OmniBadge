@@ -8,10 +8,10 @@ Before setup make sure that you have the latest version of Node and npm installe
 
 ## Setup
 
-To setup the repository first open CMD(or git-bash) and execute the following command
+To setup the repository first open CMD(or git-bash) and navigate to a folder where you want to store the repository.  Next, execute the following command
 <code>git clone https://github.com/babbott1000/flashPassEDU</code>
 
-Next, in CMD(in the root directory) run <code>npm install</code>
+Finally, in CMD(in the root directory) run <code>npm install</code>
 
 ## Running For Development
 
