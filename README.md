@@ -1,3 +1,5 @@
+#BEN OPEN DISCORD - delete this after
+
 # Flash Pass EDU
 
 A School Pass System
