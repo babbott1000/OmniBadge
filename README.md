@@ -25,6 +25,6 @@ To execute for production run <code>npm start</code> in CMD, then navigate to <c
 
 ## Push to Git
 
-#### **THIS WILL UPDATE THE GIT, NOT YOUR WORKING DIRECTORY, ONLY PUSH WORKING BUILDS**
+#### **THIS WILL UPDATE THE GIT(CHANGES ARE PERMANENT), ONLY PUSH WORKING BUILDS**
 
 To update the git, naviagte to the root directory in either CMD or git-bash, then run <code>git add -A</code>, after that run <code>git commit -m "message"</code> where message is the commit message. 
