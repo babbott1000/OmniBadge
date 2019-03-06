@@ -1,5 +1,3 @@
-# BEN OPEN DISCORD - delete this after
-
 # Flash Pass EDU
 
 A School Pass System
@@ -17,7 +15,8 @@ Finally, in CMD(in the root directory) run <code>npm install</code>
 
 ## Running For Development
 
-To execute for development run <code>npm run-script dev</code> in CMD, then navigate to <code>localhost:8080</code> in your web browser of choice(Chrome)
+To execute for development run <code>npm run-script dev</code> in CMD, then navigate to <code>http://localhost:8080/webpack-dev-server/index.html</code> in your web browser of choice(Chrome)
+
 
 ## Running For Production
 
