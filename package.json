@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "express": "^4.16.4",
+    "greenlock-express": "^2.6.8",
     "nodemon": "^1.18.10",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
