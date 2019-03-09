@@ -13,4 +13,5 @@ module.exports = app;
 
 if (require.main === module) {
 	app.listen(port);
+	console.log("listening on port '" + port + "'");
 }
