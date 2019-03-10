@@ -7,7 +7,7 @@ class Layout extends React.Component {
     return (
     	<div>
 			<p style={{"font-size": "128px"}}>
-	            TEST TEST TEST
+	            jack is cool
 			</p>
 			<Test/>
 		</div>
