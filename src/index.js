@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Test from "./components/component.jsx"
 
-class Layout extends React.Component {
+class App extends React.Component {
   render() {
     return (
     	<div>
@@ -17,4 +17,4 @@ class Layout extends React.Component {
 
 const app = document.getElementById('app');
 
-ReactDOM.render(<Layout/>, app);
+ReactDOM.render(<App/>, app);
