@@ -18,6 +18,15 @@ app.use(bodyParser.json());
 
 app.use(morgan('dev'));
 
+app.use(function(req, res, next) {
+	res.set('X-XSS-Protection', '1; mode=block');
+	res.set('X-Frame-Options', 'deny');
+	res.set('X-Content-Type-Options', 'nosniff');
+	res.set('Pragma', 'no-cache');
+	res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+	next();
+})
+
 app.use(express.static(__dirname + '/client'));
 
 app.get('/', function(req, res) {
@@ -25,7 +34,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/generateqrcode/:id', function (req, res) {
-	if(req.params.id.length > 255) {
+	if(req.params.id.length > 240) {
 		res.send('Too Long!');
 		res.end();
 	} else {	
