@@ -16,6 +16,8 @@ app.set('superSecret', config.secret);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(mongoSanitize());
+
 app.use(morgan('dev'));
 
 app.use(function(req, res, next) {
