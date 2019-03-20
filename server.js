@@ -7,6 +7,8 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const qrcode = require('qrcode');
+const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const port = 80;
 
@@ -15,6 +17,7 @@ app.set('superSecret', config.secret);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.use(mongoSanitize());
 
@@ -35,7 +38,7 @@ app.get('/', function(req, res) {
 	res.sendFile(__dirname + "/client/index.html");
 });
 
-app.get('/generateqrcode/:id', function (req, res) {
+app.get('/generateqrcode/:id', function(req, res) {
 	if(req.params.id.length > 240) {
 		res.send('Too Long!');
 		res.end();
@@ -55,6 +58,16 @@ app.get('/generateqrcode/:id', function (req, res) {
 				});
 		});
 	}
+});
+
+app.get('/settime/:id', function(req, res) {
+	res.cookie('timeLeft', req.params.id, { maxAge: 900000, httpOnly: true });
+	res.send('good');
+});
+
+app.get('/gettime', function(req, res) {
+	res.json(req.cookies.timeLeft);
+	res.end();
 });
 
 module.exports = app;
