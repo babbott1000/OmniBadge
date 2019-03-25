@@ -1,4 +1,23 @@
-.test {
-	font-size: 50px;
-	color: cornflowerblue;
+.flashpass {
+	text-align: center;
+	color: orangered;
+	font-size: 128px;
+
+
+}
+.timerGood {
+	text-align: center;
+	background-color: green;
+	font-size: 100px;
+
+}
+.timerBad {
+	text-align: center;
+	background-color: red;
+	font-size: 100px;
+}
+.person{
+	text-align: center;
+	font-size: 100px;
+	color: dodgerblue;
 }
