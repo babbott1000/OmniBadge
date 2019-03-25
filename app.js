@@ -1,5 +1,6 @@
 'use strict';
 
+// Check if domain is valid
 function approveDomain(opts, certs, cb) {
 
   opts.email = 'flashpassedu@gmail.com';
@@ -15,16 +16,15 @@ var greenlock = require('greenlock-express').create({
   version: 'draft-11'
 
 , server: 'https://acme-v02.api.letsencrypt.org/directory'
-  // Note: If at first you don't succeed, stop and switch to staging
-  // https://acme-staging-v02.api.letsencrypt.org/directory
 
-//[ 'flashpassedu.com', 'www.flashpassedu.com' ]
 , approveDomains: function (opts, certs, cb) {
+  // Check if domain is valid
   approveDomain(opts, certs, cb);
 }
-
+  // Where certs are stored
 , configDir: 'C:/Users/Ben/acme'
-
+  
+  // Setup the server
 , app: function (req, res) {
   require('./server.js')(req, res);
 }
@@ -32,4 +32,5 @@ var greenlock = require('greenlock-express').create({
 
 });
 
+// Run the server
 var server = greenlock.listen(80, 443);
