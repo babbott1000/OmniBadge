@@ -9,7 +9,7 @@ export class Pass extends React.Component {
             <div>
                 <Person firstName={"Jack"} lastName={"Hammerlund"} classroom={"Spring"} />
                 <Timedate/>
-                <Timer time={70}/>
+                <Timer time={2}/>
 
             </div>
 
