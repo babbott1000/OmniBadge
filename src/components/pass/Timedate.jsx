@@ -1,12 +1,11 @@
 import React from 'react';
 
-//<br>{this.getTime(newDate)}</br>
-//                 <br>{this.getDate(newDate)}</br>
+
 export class Timedate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            curTime: null,
+            curTime: new Date().toLocaleString(),
         }
     }
 
@@ -19,11 +18,10 @@ export class Timedate extends React.Component {
     }
 
     render() {
-
         return (
-            <View>
-                <Text>Date: {this.state.curTime}</Text>
-            </View>
+            <h1>
+                <p>Date: {this.state.curTime}</p>
+            </h1>
         );
     }
 }

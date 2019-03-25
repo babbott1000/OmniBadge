@@ -13,9 +13,9 @@ export class Person extends React.Component{
     render() {
         return(
             <div>
-                <p>
+
                     <h1 className="person"> This is {this.state.firstName} {this.state.lastName}, from {this.state.classroom} </h1>
-                </p>
+
             </div>
         );
     }

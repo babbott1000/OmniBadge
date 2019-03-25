@@ -1,47 +1,53 @@
 import React from 'react';
-export class Timer extends React.Component{
-    constructor(props){
+
+export class Timer extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
-            time: this.props.intmin,
-            seconds: null
+            seconds: ''
+
+
         }
-        this.secondsRemaining = this.state.time * 60;
+        this.secondsRemaining = this.props.time;
+        this.tick = this.tick.bind(this);
+        this.intervalHandle;
+
     }
 
-    tick(){
-        let min = Math.floor(this.secondsRemaining / 60);
-        let sec = (this.secondsRemaining) - (min * 60);
-
+    tick() {
         this.setState({
-            minutes: min,
-            seconds: sec
+            seconds: this.secondsRemaining % 60
         })
-
-        if (sec < 10){
+        if (this.secondsRemaining < 10){
             this.setState({
-                seconds: "0" + this.state.seconds,
+                seconds: '0' + this.secondsRemaining.toString()
             })
+        }
+        else if (this.secondsRemaining === 0) {
+            clearInterval(this.intervalhand)
+        }
 
-        }
-        if (min === 0 & sec === 0){
-            clearInterval(this.intervalHandel);
-        }
+
         this.secondsRemaining--;
 
     }
 
-    startTimer(){
-        this.intervalHandel = setInterval(this.tick, 1000);
+    componentDidMount() {
+        this.tick()
+        this.intervalhand = setInterval(this.tick, 1000)
+
+
     }
 
-    render(){
-        //this.startTimer();
-        return(
+
+    render() {
+
+        return (
             <div>
-                <h1> TEST TEST TEST </h1>
+                <h1>{Math.floor(this.secondsRemaining / 60)}:{this.state.seconds}</h1>
             </div>
 
         );
     }
+
 }
