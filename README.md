@@ -1,3 +1,4 @@
+![Logo](https://github.com/babbott1000/flashPassEDU/blob/master/logo.png)
 # Flash Pass EDU
 
 A School Pass System
