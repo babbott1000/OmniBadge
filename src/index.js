@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
+import {Admin} from "./components/Admin.jsx";
+/*
 import {Pass} from "./components/Pass.jsx";
-
+<Pass/>
+*/
 
 class App extends React.Component {
 
@@ -12,8 +14,8 @@ class App extends React.Component {
   			<p className="flashpass">
 	             FlashPassEDU
   			</p>
+			<Admin/>
 
-			<Pass/>
     	</div>
     );
   }
