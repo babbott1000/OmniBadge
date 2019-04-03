@@ -2,6 +2,8 @@ import React from 'react';
 
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from "react-bootstrap/Tab";
+import {Studnetstb} from "./Studnetstb.jsx";
+import {Histoy} from "./Histoy.jsx";
 
 export class TabUI extends React.Component{
 
@@ -12,12 +14,13 @@ export class TabUI extends React.Component{
                   <Tab eventKey="home" title="Home">
                       <h1> Test </h1>
                   </Tab>
-                  <Tab eventKey="profile" title="Profile">
-                      <h1> Test </h1>
+                  <Tab eventKey="history" title="History">
+                      <Histoy/>
                   </Tab>
-                  <Tab eventKey="contact" title="Contact">
-                      <h1> Test </h1>
+                  <Tab eventKey="students" title="Students">
+                       <Studnetstb/>
                   </Tab>
+
               </Tabs>
           </div>
         );

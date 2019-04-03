@@ -7,9 +7,9 @@ export class Pass extends React.Component {
     render() {
         return(
             <div>
-                <Person firstName={"Jack"} lastName={"Hammerlund"} classroom={"Spring"} />
+                <Person firstName={"Jack"} lastName={"Hammerlund"} classroom={"Mr. Spring"} />
                 <Timedate/>
-                <Timer time={2}/>
+                <Timer time={10}/>
 
             </div>
 
