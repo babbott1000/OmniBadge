@@ -1,9 +1,13 @@
 import React from 'react';
 
+//TODO: Add real tabs
+//TODO: Styole
+//HINT: https://fontawesome.com
+
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from "react-bootstrap/Tab";
-import {Studnetstb} from "./Studnetstb.jsx";
-import {Histoy} from "./Histoy.jsx";
+import { Students } from "./students.jsx";
+import { History } from "./history.jsx";
 
 export class TabUI extends React.Component{
 
@@ -15,10 +19,10 @@ export class TabUI extends React.Component{
                       <h1> Test </h1>
                   </Tab>
                   <Tab eventKey="history" title="History">
-                      <Histoy/>
+                      <History/>
                   </Tab>
                   <Tab eventKey="students" title="Students">
-                       <Studnetstb/>
+                       <Students/>
                   </Tab>
 
               </Tabs>

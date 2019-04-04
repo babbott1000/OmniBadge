@@ -1,18 +1,19 @@
 import React from 'react';
 
+//TODO: Style
 
 export class Timedate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            curTime: new Date().toLocaleString(),
+            date: new Date().toLocaleString(),
         }
     }
 
     componentDidMount() {
         setInterval(() => {
             this.setState({
-                curTime: new Date().toLocaleString()
+                date: new Date().toLocaleString()
             })
         }, 1000)
     }
@@ -20,7 +21,7 @@ export class Timedate extends React.Component {
     render() {
         return (
             <h1>
-                <p>Date: {this.state.curTime}</p>
+                <p>Date: {this.state.date}</p>
             </h1>
         );
     }

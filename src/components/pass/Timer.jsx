@@ -1,5 +1,7 @@
 import React from 'react';
 
+//TODO, get time from cookie, assume it will be in a cookie called "time-remaining"
+
 export class Timer extends React.Component {
     constructor(props) {
         super(props);

@@ -6,6 +6,8 @@ import {Pass} from "./components/Pass.jsx";
 <Pass/>
 */
 
+//TODO: Style
+
 class App extends React.Component {
 
   render() {

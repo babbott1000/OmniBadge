@@ -1,4 +1,7 @@
 import React from 'react';
+
+//TODO: Delete React.Componet part and use as a class for table, adding hyperlinks to their names going to "/student/someUniqueUserID"
+
 export class Person extends React.Component{
     constructor(props){
         super(props);

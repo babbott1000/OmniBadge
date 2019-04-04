@@ -1,8 +1,9 @@
 import React from 'react';
 import Table from "react-bootstrap/Table";
-//TODO use the table.insertRow() method to dynamically add rows to the tables
 
-export class Histoy extends React.Component{
+//TODO: Integrate table with backend and Mongo
+
+export class Students extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -15,10 +16,10 @@ export class Histoy extends React.Component{
                 <Table striped bordered hover size="sm">
                     <thead>
                     <tr>
-                        <th></th>
+                        <th>ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
-                        <th>Time out</th>
+                        <th>Username</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -26,9 +27,19 @@ export class Histoy extends React.Component{
                         <td>1</td>
                         <td>Mark</td>
                         <td>Otto</td>
-                        <td>12:31</td>
+                        <td>mdo</td>
                     </tr>
-
+                    <tr>
+                        <td>2</td>
+                        <td>Bjacob</td>
+                        <td>Thornton</td>
+                        <td>fat</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td colSpan="2">Larry the Bird</td>
+                        <td>twitter</td>
+                    </tr>
                     </tbody>
                 </Table>
             </div>
