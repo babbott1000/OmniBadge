@@ -12,18 +12,29 @@ const mongoSanitize = require('express-mongo-sanitize');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const userSchema = require('./database/userSchema.js');
+const passSchema = require('./database/passSchema.js');
+const User = mongoose.model('User', userSchema);
+const Pass = mongoose.model('Pass', passSchema);
 
 const port = 80;
 
 
 // Connect to the database
-//mongoose.connect(config.database, { useNewUrlParser: true });
+mongoose.connect(config.database, { useNewUrlParser: true });
+
+// Check the connection
+var db = mongoose.connection;
+
+// Log any connection errors
+db.on('error', console.error.bind(console, 'connection error:'));
+
 // Set the secret key for making cookies/tokens
 app.set('superSecret', config.secret);
 
 // Configure the cookie parameters, maxAge is the expiration time and keys is what you use to sign cookies/tokens
 app.use(cookieSession({
-    maxAge: 60 * 1000,
+    maxAge: 60 * 60 * 1000,
     keys: [ app.get('superSecret') ]
 }));
 
@@ -94,7 +105,7 @@ app.get('/', function(req, res) {
 });
 
 // Generate QR Code
-app.get('/generateqrcode/:id', function(req, res) {
+app.get('/generateqrcode/:id', passport.authenticate('google'), function(req, res) {
 	// If the data is too long then end the request because windows doesn't like long file names
 	if(req.params.id.length > 240) {
 		res.send('Too Long!');
@@ -121,25 +132,48 @@ app.get('/generateqrcode/:id', function(req, res) {
 });
 
 // Set the time cookie
-app.get('/settime/:id', function(req, res) {
+/*app.get('/settime/:id', function(req, res) {
 	res.cookie('timeLeft', req.params.id, { maxAge: 900000, httpOnly: true });
 	res.send('good');
 });
+*/
 
-// Get the time cookie
-app.get('/gettime', function(req, res) {
-	res.json(req.cookies.timeLeft);
-	res.end();
-});
+app.get('/newPass', isUserAuthenticated, function(req, res) {
+	res.send('Good');	
+})
+
+app.get('/newPass/:room', isUserAuthenticated, function(req, res) {
+	let student = new User({ firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: "Student" });
+	let pass = new Pass({ startTime: new Date(), duration: 60000, expiration: new Date(new Date().getTime()+60000), origin: req.params.room, destination: "Bathroom", return: true, student: student });
+	pass.save(function (err) {
+	  if (err) throw err;
+	});
+	console.log(req.user);
+	res.send("Thank you " + req.user.name.givenName + ", your pass has been recorded");
+})
 
 // Main authentication path
 app.get('/auth', passport.authenticate('google', {
-    scope: ['profile']
+    scope: [ 'profile', 'email' ]
 }));
 
 // This gets called when authentication completes
 app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
-    res.redirect('/admin');
+	User.findOne({ email: req.user._json.email }, function(err, user) {
+		if(user) {
+			if (user.role == 'student') {
+				res.redirect('/newPass');
+			} else {
+				res.redirect('/admin');
+			}
+		} else {
+			let newUser = User.create({ firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: 'student'})
+			newUser.save(function(err) {
+				if (err) throw err;
+			})
+			res.redirect('/newPass');
+		}
+	})
 })
 
 // This is a protected path, as shown by the isUserAuthenticated function
