@@ -16,9 +16,10 @@ const userSchema = require('./database/userSchema.js');
 const passSchema = require('./database/passSchema.js');
 const User = mongoose.model('User', userSchema);
 const Pass = mongoose.model('Pass', passSchema);
+const Class = mongoose.model('Class', classSchema);
+const Org = mongoose.model('Org', orgSchema);
 
 const port = 80;
-
 
 // Connect to the database
 mongoose.connect(config.database, { useNewUrlParser: true });
@@ -138,7 +139,7 @@ app.get('/generateqrcode/:id', passport.authenticate('google'), function(req, re
 });
 */
 
-app.get('/newPass', isUserAuthenticated, function(req, res) {
+app.get('/student', isUserAuthenticated, function(req, res) {
 	res.send('Good');	
 })
 
@@ -162,16 +163,13 @@ app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
 	User.findOne({ email: req.user._json.email }, function(err, user) {
 		if(user) {
 			if (user.role == 'student') {
-				res.redirect('/newPass');
+				res.redirect('/student');
 			} else {
 				res.redirect('/admin');
 			}
 		} else {
-			let newUser = User.create({ firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: 'student'})
-			newUser.save(function(err) {
-				if (err) throw err;
-			})
-			res.redirect('/newPass');
+			User.create({ firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: 'student'})
+			res.redirect('/student');
 		}
 	})
 })
@@ -180,6 +178,11 @@ app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
 app.get('/admin', isUserAuthenticated, (req, res) => {
 	res.send('Hello ' + req.user.name.givenName + ', how are you doing today?');
 })
+
+app.get('/logout', isUserAuthenticated, (req, res) => {
+	req.logout();
+	res.redirect('/');
+});
 
 // Export app(the main server object), used for HTTPS(app.js)
 module.exports = app;

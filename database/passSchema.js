@@ -7,6 +7,7 @@ module.exports =  new mongoose.Schema({
   duration: Number,
   expiration: Date,
   origin: String,
+  teacher: userSchema,
   destination: String,
   return: Boolean,
   student: userSchema
