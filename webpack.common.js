@@ -2,7 +2,8 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    admin: './src/admin.js',  
+    Admin: './src/Admin.js', 
+    Home: './src/Home.js'
   },
   plugins: [
   ],
@@ -18,7 +19,7 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'scripts.min.js',
-    path: path.resolve(__dirname, 'client')
+    filename: '[name].min.js',
+    path: path.resolve(__dirname, 'client/Scripts')
   }
 };

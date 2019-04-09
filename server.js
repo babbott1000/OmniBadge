@@ -117,7 +117,7 @@ app.use(express.static(__dirname + '/client'));
 
 // Send main page
 app.get('/', function(req, res) {
-	res.sendFile(__dirname + "/client/index.html");
+	res.sendFile(__dirname + "/client/Home/Home.html");
 });
 
 // Generate QR Code
@@ -192,7 +192,7 @@ app.get('/newOrg', isUserAuthenticated, (req, res) => {
 
 // This is a protected path, as shown by the isUserAuthenticated function
 app.get('/admin', isUserAuthenticated, (req, res) => {
-	res.send('TODO');
+	res.send(__dirname + '/client/Admin/Admin.html');
 });
 
 app.get('/logout', isUserAuthenticated, (req, res) => {
