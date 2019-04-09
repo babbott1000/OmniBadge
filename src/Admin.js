@@ -11,7 +11,7 @@ class Admin extends React.Component{
   			<p className="flashpass">
 	             FlashPassEDU
   			</p>
-              <NavBar/>
+              <NavBar authed='true'/>
             <TabUI/>
 
           </div>

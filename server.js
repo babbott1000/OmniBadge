@@ -59,7 +59,6 @@ passport.use(new GoogleStrategy({
 
 // Encode the user
 passport.serializeUser((user, done) => {
-	console.log(user);
     done(null, user);
 });
 
@@ -113,11 +112,11 @@ app.use(function(req, res, next) {
 })
 
 // Serve static assets
-app.use(express.static(__dirname + '/client'));
+app.use(express.static(__dirname + '/client/static'));
 
 // Send main page
 app.get('/', function(req, res) {
-	res.sendFile(__dirname + "/client/Home/Home.html");
+	res.sendFile(__dirname + "/client/static/Home/Home.html");
 });
 
 // Generate QR Code
@@ -192,7 +191,11 @@ app.get('/newOrg', isUserAuthenticated, (req, res) => {
 
 // This is a protected path, as shown by the isUserAuthenticated function
 app.get('/admin', isUserAuthenticated, (req, res) => {
-	res.send(__dirname + '/client/Admin/Admin.html');
+	res.sendFile(__dirname + '/client/Admin/Admin.html');
+});
+
+app.get('/admin.min.js', isUserAuthenticated, (req, res) => {
+	res.sendFile(__dirname + '/client/Admin/admin.min.js');
 });
 
 app.get('/logout', isUserAuthenticated, (req, res) => {
