@@ -2,8 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 module.exports = new mongoose.Schema({
+  id: String,
   firstName: String,
   lastName: String,
   email: String,
-  admin: Boolean
+  teacher: Boolean,
+  owner: Boolean,
 });

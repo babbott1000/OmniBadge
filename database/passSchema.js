@@ -10,5 +10,5 @@ module.exports =  new mongoose.Schema({
   teacher: userSchema,
   destination: String,
   return: Boolean,
-  student: userSchema
+  student: userSchema,
 });

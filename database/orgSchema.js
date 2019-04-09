@@ -11,5 +11,5 @@ module.exports = new mongoose.Schema({
   },
   classes: [ classSchema ],
   passes: [ passSchema ],
-  role: String
+  role: String,
 });

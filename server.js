@@ -38,7 +38,8 @@ app.set('superSecret', config.secret);
 // Configure the cookie parameters, maxAge is the expiration time and keys is what you use to sign cookies/tokens
 app.use(cookieSession({
     maxAge: 60 * 60 * 1000,
-    keys: [ app.get('superSecret') ]
+    keys: [ app.get('superSecret') ],
+    httpOnly: false,
 }));
 
 // Initialize passport
@@ -58,6 +59,7 @@ passport.use(new GoogleStrategy({
 
 // Encode the user
 passport.serializeUser((user, done) => {
+	console.log(user);
     done(null, user);
 });
 
@@ -74,6 +76,17 @@ function isUserAuthenticated(req, res, next) {
         res.redirect('/');
     }
 }
+
+// Check if the user is logged in
+function isUserAdmin(req, res, next) {
+    if (req.user) {
+    	User.find({ });
+        next();
+    } else {
+        res.redirect('/');
+    }
+}
+
 
 // Configure Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -141,18 +154,14 @@ app.get('/generateqrcode/:id', passport.authenticate('google'), function(req, re
 });
 */
 
-app.get('/student', isUserAuthenticated, function(req, res) {
-	res.send('Good');	
-})
-
 app.get('/newPass/:room', isUserAuthenticated, function(req, res) {
-	let student = new User({ firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: "Student" });
+	/*let student = new User({ id: req.user.id, firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: "Student" });
 	let pass = new Pass({ startTime: new Date(), duration: 60000, expiration: new Date(new Date().getTime()+60000), origin: req.params.room, destination: "Bathroom", return: true, student: student });
 	pass.save(function (err) {
 	  if (err) throw err;
 	});
 	console.log(req.user);
-	res.send("Thank you " + req.user.name.givenName + ", your pass has been recorded");
+	*/res.send("Thank you " + req.user.name.givenName + ", your pass has been recorded");
 })
 
 // Main authentication path
@@ -165,33 +174,41 @@ app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
 	User.findOne({ email: req.user._json.email }, function(err, user) {
 		if(user) {
 			if (user.role == 'student') {
-				res.redirect('/student');
+				res.redirect('/');
 			} else {
 				res.redirect('/admin');
 			}
 		} else {
-			User.create({ firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: 'student'})
-			res.redirect('/student');
+			User.create({ id: req.user.id, firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: 'student'})
+			res.redirect('/admin');
 		}
 	})
 })
 
+
+app.get('/newOrg', isUserAuthenticated, (req, res) => {
+	res.send('TODO');
+});
+
 // This is a protected path, as shown by the isUserAuthenticated function
 app.get('/admin', isUserAuthenticated, (req, res) => {
-	res.send('Hello ' + req.user.name.givenName + ', how are you doing today?');
-})
+	res.send('TODO');
+});
 
 app.get('/logout', isUserAuthenticated, (req, res) => {
 	req.logout();
 	res.redirect('/');
 });
 
-// Export app(the main server object), used for HTTPS(app.js)
-module.exports = app;
 
 // If this is being run standalone, serve in this file
 if (require.main === module) {
 	app.listen(port);
 	console.log("listening on port '" + port + "'");
+} else {
+	//Let Express Know it's operating behind a proxy
+	app.enable('trust proxy')
 }
 
+// Export app(the main server object), used for HTTPS(app.js)
+module.exports = app;

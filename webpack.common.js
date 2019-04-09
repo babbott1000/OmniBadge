@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    app: './src/index.js'
+    admin: './src/admin.js',  
   },
   plugins: [
   ],

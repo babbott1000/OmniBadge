@@ -4,6 +4,6 @@
 	},
 	"verbose": true,
 	"ignore": [
-	    "client"
-  	]
+		"client"
+	]
 }
