@@ -11,6 +11,7 @@ export class History extends React.Component{
         }
     }
     render() {
+       var passLog =  { "firstName": "jack", "lastName": "baude", "teacher": "springer", timeOut }
         return(
             <div>
                 <Table striped bordered hover size="sm">

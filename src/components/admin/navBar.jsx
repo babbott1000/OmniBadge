@@ -1,7 +1,7 @@
 import React from 'react';
 import Nav from "react-bootstrap/Nav";
 
-//TODO: Add logout
+//TODO:
 
 export class NavBar extends React.Component{
     render() {
@@ -9,22 +9,14 @@ export class NavBar extends React.Component{
             <div>
                 <Nav
                     activeKey="/home"
-                    onSelect={selectedKey => alert(`selected ${selectedKey}`)}
                 >
                     <Nav.Item>
-                        <Nav.Link href="/home">Active</Nav.Link>
+                        <Nav.Link href="https://google.com">Home</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link eventKey="link-1">Link</Nav.Link>
+                        <Nav.Link href="/logout">Log out</Nav.Link>
                     </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="link-2">Link</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="disabled" disabled>
-                            Disabled
-                        </Nav.Link>
-                    </Nav.Item>
+
                 </Nav>
             </div>
         );
