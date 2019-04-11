@@ -1,10 +1,6 @@
 const path = require('path');
 
 module.exports = {
-  entry: {
-    '/Admin/admin': './src/Admin.js', 
-    '/static/Scripts/home': './src/Home.js',
-  },
   plugins: [
   ],
   module: {

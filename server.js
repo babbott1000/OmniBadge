@@ -119,6 +119,11 @@ app.get('/', function(req, res) {
 	res.sendFile(__dirname + "/client/static/Home/Home.html");
 });
 
+// Send css file
+app.get('/style.css', function(req, res) {
+	res.sendFile(__dirname + "/client/style.css");
+});
+
 // Generate QR Code
 app.get('/generateqrcode/:id', passport.authenticate('google'), function(req, res) {
 	// If the data is too long then end the request because windows doesn't like long file names
