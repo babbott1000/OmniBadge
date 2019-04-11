@@ -4,7 +4,8 @@ const common = require('./webpack.common.js');
 module.exports = merge(common, {
   entry: {
     '/Admin/admin': './src/Admin.js', 
-    '/static/Scripts/home': './src/Home.js',
+    '/static/scripts/home': './src/Home.js',
+    '/static/scripts/pass': './src/Pass.js',
   },
   mode: 'production',
 });
