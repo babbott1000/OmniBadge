@@ -6,8 +6,8 @@ import React from 'react';
 
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from "react-bootstrap/Tab";
-import { Students } from "./Students.jsx";
-import { History } from "./History.jsx";
+import { Students } from "./students.jsx";
+import { History } from "./history.jsx";
 
 export class TabUI extends React.Component{
 
