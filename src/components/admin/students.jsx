@@ -1,17 +1,24 @@
 import React from 'react';
 import Table from "react-bootstrap/Table";
 
-//TODO: Integrate table with backend and Mongo
+/*TODO: Integrate table with backend and Mongo
 
-export class Students extends React.Component{
+
+*/
+export class Students extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            out: null
+            log: null
         }
+
     }
+
+
+
     render() {
-        return(
+
+        return (
             <div>
                 <Table striped bordered hover size="sm">
                     <thead>
@@ -23,23 +30,7 @@ export class Students extends React.Component{
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Bjacob</td>
-                        <td>Thornton</td>
-                        <td>fat</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td colSpan="2">Larry the Bird</td>
-                        <td>twitter</td>
-                    </tr>
+
                     </tbody>
                 </Table>
             </div>
