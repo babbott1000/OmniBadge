@@ -189,6 +189,12 @@ app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
 			res.redirect('/admin');
 		}
 	})
+});
+
+app.post('/students', isUserAuthenticated, (req, res) => {
+	User.find({}, function (err, users) {
+		res.json(users);
+	})
 })
 
 
