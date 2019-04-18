@@ -114,6 +114,8 @@ app.use(function(req, res, next) {
 // Serve static assets
 app.use(express.static(__dirname + '/client/static'));
 
+app.use(express.static(__dirname + '/client/static/scripts'));
+
 // Send main page
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + "/client/static/Home/Home.html");
