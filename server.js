@@ -195,7 +195,13 @@ app.post('/students', isUserAuthenticated, (req, res) => {
 	User.find({}, function (err, users) {
 		res.json(users);
 	})
-})
+});
+
+app.post('/passes', isUserAuthenticated, (req, res) => {
+	User.find({}, function (err, users) {
+		res.json(users);
+	})
+});
 
 
 app.get('/newOrg', isUserAuthenticated, (req, res) => {
