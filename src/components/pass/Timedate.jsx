@@ -2,7 +2,7 @@ import React from 'react';
 
 //TODO: Style
 
-export class Timedate extends React.Component {
+export class TimeDate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

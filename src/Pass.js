@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import {Timedate} from "./components/pass/Timedate.jsx";
-import {Timer} from "./components/pass/Timer.jsx";
-import {Person} from "./components/pass/Person.jsx";
+import { TimeDate } from "./components/pass/timeDate.jsx";
+import { Timer } from "./components/pass/timer.jsx";
+import { Person } from "./components/pass/person.jsx";
 
 class Pass extends React.Component{
 

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import ReactDOM from "react-dom";
-import { TabUI } from "./components/admin/TabUI.jsx";
 import { NavBar } from "./components/navBar.jsx";
 
 class Home extends React.Component{

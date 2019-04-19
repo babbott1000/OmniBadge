@@ -1,8 +1,6 @@
 import React from 'react';
 import Nav from "react-bootstrap/Nav";
 
-//TODO: Add logout
-
 
 export class NavBar extends React.Component {
 

@@ -4,13 +4,13 @@
 	font-size: 128px;
 
 }
-.timerGood {
+.timerValid {
 	text-align: center;
 	background-color: green;
 	font-size: 100px;
 
 }
-.timerBad {
+.timerInvalid {
 	text-align: center;
 	background-color: red;
 	font-size: 100px;

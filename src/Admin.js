@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import { TabUI } from "./components/admin/TabUI.jsx";
+import { AdminTabs } from "./components/admin/adminTabs.jsx";
 import { NavBar } from "./components/navBar.jsx";
 
 class Admin extends React.Component{
@@ -12,7 +12,7 @@ class Admin extends React.Component{
 	             FlashPassEDU
   			</p>
               <NavBar authed='true'/>
-            <TabUI/>
+            <AdminTabs/>
 
           </div>
         );

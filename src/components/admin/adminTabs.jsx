@@ -1,15 +1,15 @@
 import React from 'react';
 
 //TODO: Add real tabs
-//TODO: Styole
-//HINT: https://fontawesome.com
+//TODO: Style
+//TODO: Add icons from Font Awesome, https://fontawesome.com
 
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from "react-bootstrap/Tab";
 import { Students } from "./students.jsx";
-import { History } from "./history.jsx";
+import { PassLog } from "./passLog.jsx";
 
-export class TabUI extends React.Component{
+export class AdminTabs extends React.Component{
 
     render() {
         return(
@@ -18,8 +18,8 @@ export class TabUI extends React.Component{
                   <Tab eventKey="home" title="Home">
                       <h1> Test </h1>
                   </Tab>
-                  <Tab eventKey="history" title="History">
-                      <History/>
+                  <Tab eventKey="history" title="Pass Log">
+                      <PassLog/>
                   </Tab>
                   <Tab eventKey="students" title="Students">
                        <Students/>
