@@ -12,7 +12,7 @@ export class PassLog extends React.Component{
     }
     insertData(d){
         for (let i = 0; i < d.length; i++) {
-            let table = document.getElementById("passes");
+            let table = document.getElementById("passLog");
             let row = table.insertRow(i + 1);
             let index = row.insertCell(0);
             let firstName = row.insertCell(1);
@@ -45,20 +45,24 @@ export class PassLog extends React.Component{
                 insertData(passes);
             }
         };
-        xhttp.open("POST", "passLog", true);
+        xhttp.open("POST", "/passes", true);
         xhttp.send();
     }
 
     render() {
         return(
             <div>
-                <Table id = "passes" striped bordered hover size="sm">
+                <Table id = "passLog" striped bordered hover size="sm">
                     <thead>
                     <tr>
-                        <th></th>
+                        <th>id</th>
                         <th>First Name</th>
                         <th>Last Name</th>
+                        <th>Email</th>
                         <th>Time out</th>
+                        <th>Duration</th>
+                        <th>Origin</th>
+                        <th>Destination</th>
                     </tr>
                     </thead>
                     <tbody>
