@@ -9,7 +9,7 @@ export class Students extends React.Component {
         this.state = {
             log: null
         }
-        this.insertData = this.insertData.bind(this);
+
     }
 
 
@@ -30,8 +30,6 @@ export class Students extends React.Component {
     }
 
     componentDidMount() {
-        //var passes =  [{ "firstName": "jack", "lastName": "baude", "email": "jackbaude@gmail.com" }, { "firstName": "jack", "lastName": "baude", "email": "jackbaude@gmail.com" }];
-
         var insertData = this.insertData.bind();
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
