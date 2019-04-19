@@ -1,8 +1,20 @@
-.flashpass {
+/*.header {
 	text-align: center;
 	color: orangered;
 	font-size: 128px;
-
+}*/
+.header {
+  text-align: center;
+  height: 2em;
+  line-height: 2em;
+  font-size: 5em;
+}
+#logo {
+	display: inline;
+	width: 8%;
+	border-radius: 50%;
+	margin-bottom: 2%;
+	margin-right: 2%;
 }
 .timerValid {
 	text-align: center;

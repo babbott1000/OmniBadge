@@ -8,10 +8,11 @@ class Admin extends React.Component{
     render() {
         return(
           <div>
-  			<p className="flashpass">
-	             FlashPassEDU
-  			</p>
-              <NavBar authed='true'/>
+            <div className="header">
+              <img src="/logo.png" id="logo"></img>
+              FlashPassEDU
+            </div>
+            <NavBar authed='true'/>
             <AdminTabs/>
 
           </div>
