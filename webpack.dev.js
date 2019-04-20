@@ -6,6 +6,7 @@ module.exports = merge(common, {
     'admin': './src/Admin.js', 
     'static/Home/home': './src/Home.js',
     'static/Pass/pass': './src/Pass.js',
+    'static/Create/create': './src/Create.js',
   },
   mode: 'development',
   devtool: 'inline-source-map',
