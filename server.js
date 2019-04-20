@@ -20,6 +20,8 @@ const User = mongoose.model('User', userSchema);
 const Pass = mongoose.model('Pass', passSchema);
 const Class = mongoose.model('Class', classSchema);
 const Org = mongoose.model('Org', orgSchema);
+const crypto = require('crypto');
+
 
 const port = 80;
 
@@ -115,6 +117,25 @@ app.use(function(req, res, next) {
 app.use(express.static(__dirname + '/client/static'));
 
 app.use(express.static(__dirname + '/client/static/scripts'));
+
+app.post('/deploy', (req, res) => {
+
+	console.log(req);
+
+	let hmac = crypto.createHmac('sha1', config.webhookSecret);
+	let result = hmac.update(JSON.stringify(req.body)).digest('hex');
+
+	if(('sha1=' + result) == req.get('x-hub-signature')) {
+		if(req.body.ref == 'refs/heads/deploy') {
+			console.log('New Version Detected');
+		}
+		res.status(200);
+		res.end();
+	} else {
+		res.status(404);
+		res.end();
+	}
+});
 
 // Send main page
 app.get('/', function(req, res) {
@@ -220,6 +241,11 @@ app.get('/admin.min.js', isUserAuthenticated, (req, res) => {
 app.get('/logout', isUserAuthenticated, (req, res) => {
 	req.logout();
 	res.redirect('/');
+});
+
+// Handle 404
+app.use(function(req, res) {
+	res.status(404).send('404: Page not Found');
 });
 
 
