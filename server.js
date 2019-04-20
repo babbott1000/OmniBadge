@@ -21,6 +21,7 @@ const Pass = mongoose.model('Pass', passSchema);
 const Class = mongoose.model('Class', classSchema);
 const Org = mongoose.model('Org', orgSchema);
 const crypto = require('crypto');
+const { exec } = require('child_process');
 
 
 const port = 80;
@@ -119,6 +120,8 @@ app.use(express.static(__dirname + '/client/static'));
 app.use(express.static(__dirname + '/client/static/scripts'));
 
 app.post('/deploy', (req, res) => {
+	
+	exec('start cmd \\k \"cd ' + __dirname + '\"');
 
 	console.log(req);
 
