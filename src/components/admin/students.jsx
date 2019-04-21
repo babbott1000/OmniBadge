@@ -1,7 +1,7 @@
 import React from 'react';
 import Table from "react-bootstrap/Table";
 
-// TODO: Integrate table with backend and Mongo
+
 
 export class Students extends React.Component {
     constructor(props) {
