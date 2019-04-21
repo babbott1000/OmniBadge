@@ -31,7 +31,11 @@ export class NavBar extends React.Component {
                         <Nav.Link href="/newOrg">Create Organization</Nav.Link>
                     </Nav.Item>
                     { this.button }
+                    <Nav.Item>
+                        <Nav.Link href="/create">Make a account</Nav.Link>
+                    </Nav.Item>
                 </Nav>
+
             </div>
         );
     }
