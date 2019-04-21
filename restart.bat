@@ -1,1 +1,2 @@
-echo 6
+git checkout deploy
+git reset --hard
