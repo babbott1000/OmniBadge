@@ -7,15 +7,15 @@ class Admin extends React.Component{
 
     render() {
         return(
-          <div>
-            <div className="header">
-              <img src="/logo.png" id="logo"></img>
-              FlashPassEDU
-            </div>
-            <NavBar authed='true'/>
-            <AdminTabs/>
+            <div>
+                <div className="header">
+                    <img src="/logo.png" id="logo"></img>
+                    FlashPassEDU
+                </div>
+                <NavBar authed='true'/>
+                <AdminTabs/>
 
-          </div>
+            </div>
         );
     }
 }
