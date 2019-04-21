@@ -1,3 +1,3 @@
 git checkout deploy
-git reset --hard
+git pull
 exit
