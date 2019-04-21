@@ -21,7 +21,7 @@ const Pass = mongoose.model('Pass', passSchema);
 const Class = mongoose.model('Class', classSchema);
 const Org = mongoose.model('Org', orgSchema);
 const crypto = require('crypto');
-const { exec } = require('child_process');
+const { execSync } = require('child_process');
 
 
 const port = 80;
@@ -121,16 +121,15 @@ app.use(express.static(__dirname + '/client/static/scripts'));
 
 app.post('/deploy', (req, res) => {
 	
-	exec('start cmd \\k \"cd ' + __dirname + '\"');
-
-	console.log(req);
-
 	let hmac = crypto.createHmac('sha1', config.webhookSecret);
 	let result = hmac.update(JSON.stringify(req.body)).digest('hex');
 
 	if(('sha1=' + result) == req.get('x-hub-signature')) {
 		if(req.body.ref == 'refs/heads/deploy') {
-			console.log('New Version Detected');
+			console.log('\x1b[35m%s\x1b[0m', 'New Version Detected, Pulling');
+			execSync('start cmd /k \"' + __dirname + '\\restart.bat\"');
+		} else {
+			console.log('\x1b[36m%s\x1b[0m', 'Detected Push not on Deploy Branch');
 		}
 		res.status(200);
 		res.end();
