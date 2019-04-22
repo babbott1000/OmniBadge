@@ -1,6 +1,6 @@
 import React from 'react';
 import { Person } from "./pass/person.jsx";
-import { Timedate } from "./pass/timedate.jsx";
+import { TimeDate } from "./pass/timeDate.jsx";
 import { Timer } from "./pass/timer.jsx";
 
 //TODO: Style, dynamically set time from cookie
@@ -10,7 +10,7 @@ export class Pass extends React.Component {
         return(
             <div>
                 <Person firstName={"Jack"} lastName={"Smith"} room={"Mr. Spring"} />
-                <Timedate/>
+                <TimeDate/>
                 <Timer time={10}/>
 
             </div>

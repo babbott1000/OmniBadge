@@ -14,7 +14,7 @@ class Pass extends React.Component{
                   FlashPassEDU
                 </div>
 
-                <Timedate/>
+                <TimeDate/>
                 <Timer/>
                 <Person/>
             </div>

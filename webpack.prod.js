@@ -6,6 +6,7 @@ module.exports = merge(common, {
     '/Admin/admin': './src/Admin.js', 
     '/static/scripts/home': './src/Home.js',
     '/static/scripts/pass': './src/Pass.js',
+    '/static/scripts/create': './src/Create.js',
   },
   mode: 'production',
 });

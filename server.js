@@ -150,7 +150,7 @@ app.get('/style.css', function(req, res) {
 });
 
 // Generate QR Code
-app.get('/generateqrcode/:id', passport.authenticate('google'), function(req, res) {
+app.get('/newqr/:id', passport.authenticate('google'), function(req, res) {
 	// If the data is too long then end the request because windows doesn't like long file names
 	if(req.params.id.length > 240) {
 		res.send('Too Long!');
@@ -158,9 +158,9 @@ app.get('/generateqrcode/:id', passport.authenticate('google'), function(req, re
 	} else {
 		// Render the QR Code to a file
 		qrcode.toFile(__dirname + '/client/qrcodes/' + req.params.id + '.svg', req.params.id, function (err) {
-			if(err)
+			if(err) {
 				throw err;
-			else
+			} else {
 				// Serve the File
 				res.sendFile(__dirname  + '/client/qrcodes/' + req.params.id + '.svg', function (err) {
 					if (err) {
@@ -172,6 +172,7 @@ app.get('/generateqrcode/:id', passport.authenticate('google'), function(req, re
 						});
 					}
 				});
+			}
 		});
 	}
 });
@@ -212,6 +213,14 @@ app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
 			res.redirect('/admin');
 		}
 	})
+});
+
+app.get('/create', (req, res) => {
+	res.send('TODO');
+});
+
+app.get('/pass', (req, res) => {
+	res.sendFile(__dirname + '/client/static/Pass/Pass.html');
 });
 
 app.post('/students', isUserAuthenticated, (req, res) => {
