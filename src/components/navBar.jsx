@@ -32,7 +32,7 @@ export class NavBar extends React.Component {
                     </Nav.Item>
                     { this.button }
                     <Nav.Item>
-                        <Nav.Link href="/create">Make a account</Nav.Link>
+                        <Nav.Link href="/create">Sign up</Nav.Link>
                     </Nav.Item>
                 </Nav>
 

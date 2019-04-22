@@ -15,9 +15,6 @@ export class AdminTabs extends React.Component{
         return(
           <div>
               <Tabs defaultActiveKey="home">
-                  <Tab eventKey="home" title="Home">
-                      <h1> Test </h1>
-                  </Tab>
                   <Tab eventKey="history" title="Pass Log">
                       <PassLog/>
                   </Tab>
