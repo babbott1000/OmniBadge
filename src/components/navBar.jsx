@@ -7,17 +7,13 @@ export class NavBar extends React.Component {
 
     constructor(props) {
         super(props);
-
-        if(props.authed != 'true') {
-            this.button = (<Nav.Item>
-                <Nav.Link href="/auth">Login</Nav.Link>
-            </Nav.Item>)
-        } else {
-            this.button = (<Nav.Item>
-                <Nav.Link href="/logout">Logout</Nav.Link>
-            </Nav.Item>)
+        this.state = {
+            auth: this.props.authed
         }
+
+
     }
+
 
     render() {
 
@@ -30,10 +26,17 @@ export class NavBar extends React.Component {
                     <Nav.Item>
                         <Nav.Link href="/newOrg">Create Organization</Nav.Link>
                     </Nav.Item>
-                    { this.button }
-                    <Nav.Item>
+
+                    {this.state.auth ? <Nav.Item>
+                        <Nav.Link href="/logout">Logout</Nav.Link>
+                        </Nav.Item>: <Nav.Item>
+                        <Nav.Link href="/auth">Login</Nav.Link>
+                        </Nav.Item>}
+
+                    {this.state.auth && <Nav.Item>
                         <Nav.Link href="/create">Sign up</Nav.Link>
-                    </Nav.Item>
+                    </Nav.Item>}
+
                 </Nav>
 
             </div>
