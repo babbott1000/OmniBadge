@@ -15,8 +15,8 @@ class Pass extends React.Component{
                 </div>
 
                 <TimeDate/>
-                <Timer/>
-                <Person/>
+                <Timer time={10}/>
+                <Person firstName={"Jack"} lastName={"Smith"} room={"Mr. Springer"} />
             </div>
         );
     }

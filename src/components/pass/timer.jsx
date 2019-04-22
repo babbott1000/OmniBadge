@@ -11,14 +11,14 @@ export class Timer extends React.Component {
         this.secondsRemaining = this.props.time;
         this.tick = this.tick.bind(this);
         this.intervalHandle;
-        this.style = { color: 'green' };
+        this.backgroundColor = 'green';
     }
 
     tick() {
 
         if (this.secondsRemaining == 0) {
             clearInterval(this.intervalhand);
-            this.style = { color: 'red' };
+            this.backgroundColor = 'red';
         }
 
         this.setState({
@@ -41,9 +41,10 @@ export class Timer extends React.Component {
 
 
     render() {
+        document.body.style.backgroundColor = this.backgroundColor;
         return (
             <div>
-                <h1 style={this.style}>{Math.floor(this.secondsRemaining / 60)}:{this.state.seconds}</h1>
+                <h1>{Math.floor(this.secondsRemaining / 60)}:{this.state.seconds}</h1>
             </div>
 
         );
