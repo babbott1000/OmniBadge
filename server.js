@@ -216,7 +216,7 @@ app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
 });
 
 app.get('/create', (req, res) => {
-	res.send('TODO');
+	res.sendFile(__dirname + '/client/static/Create/Create.html');
 });
 
 app.get('/pass', (req, res) => {

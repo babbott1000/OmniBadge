@@ -7,6 +7,14 @@ import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 export class CreateAccount extends React.Component {
 
     render() {
+        var buttonStyle = {
+            'margin': 'auto',
+            'margin-top': '1em',
+            'width': '25%',
+            'height': '2em',
+            'font-size': '5em',
+            'line-height': '1.5em',
+        }
         return (
             <div>
                 <h1>The account you have logged in does not have an account
@@ -16,17 +24,17 @@ export class CreateAccount extends React.Component {
                 <h1>Would you like to create one?</h1>
                 <ButtonToolbar>
                     <Button
-                        variant="Success"
-                        size="lg"
+                        variant="success"
                         href="/CHANGE"
-                        block>
+                        style={buttonStyle}
+                        >
                         Yes
                     </Button>
                     <Button
-                        variant="Danger"
-                        size="lg"
+                        variant="danger"
                         href="/CHANGE"
-                        block>
+                        style={buttonStyle}
+                        >
                         No
                     </Button>
                 </ButtonToolbar>
