@@ -101,6 +101,8 @@ app.use(cookieParser());
 // Sanitize input
 app.use(mongoSanitize());
 
+app.use(morgan(':date[iso]'));
+
 // Use Morgan to log HTTP requests
 app.use(morgan('dev'));
 
