@@ -39,7 +39,7 @@ export class Students extends React.Component {
                 insertData(passes);
             }
         };
-        xhttp.open("POST", "students", true);
+        xhttp.open("POST", "/students", true);
         xhttp.send();
     }
 
