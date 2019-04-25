@@ -27,16 +27,18 @@ export class NavBar extends React.Component {
                         <Nav.Link href="/newOrg">Create Organization</Nav.Link>
                     </Nav.Item>
 
-                    {this.state.auth ? <Nav.Item>
+                    { this.state.auth == 'true' ? ( <Nav.Item>
                         <Nav.Link href="/logout">Logout</Nav.Link>
-                        </Nav.Item>: <Nav.Item>
+                        </Nav.Item> ) : ( <Nav.Item>
                         <Nav.Link href="/auth">Login</Nav.Link>
-                        </Nav.Item>}
+                        </Nav.Item> )
+                    } 
 
-                    {this.state.auth && <Nav.Item>
-                        <Nav.Link href="/create">Sign up</Nav.Link>
-                    </Nav.Item>}
 
+                    { this.state.auth != 'true' && ( <Nav.Item>
+                                <Nav.Link href="/create">Sign up</Nav.Link>
+                            </Nav.Item> )
+                    }
                 </Nav>
 
             </div>
