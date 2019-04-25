@@ -13,9 +13,5 @@ module.exports = {
         }
       }
     ]
-  },
-  output: {
-    path: path.resolve(__dirname, 'client'),
-    filename: '[name].min.js',
   }
 };

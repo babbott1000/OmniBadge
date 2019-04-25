@@ -1,12 +1,31 @@
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
+const path = require('path');
 
-module.exports = merge(common, {
+var standardConfig = merge(common, {
   entry: {
-    '/Admin/admin': './src/Admin.js', 
-    '/static/scripts/home': './src/Home.js',
-    '/static/scripts/pass': './src/Pass.js',
-    '/static/scripts/create': './src/Create.js',
+    'home': './src/Home.js',
+    'pass': './src/Pass.js',
+    'create': './src/Create.js'
   },
   mode: 'production',
+  output: {
+    path: path.resolve(__dirname, 'client/static/scripts'),
+    filename: '[name].min.js',
+  }
 });
+
+var adminConfig = merge(common, {
+  entry: {
+    'admin': './src/Admin.js'
+  },
+  mode: 'production',
+  output: {
+    path: path.resolve(__dirname, 'client/admin'),
+    filename: '[name].min.js',
+  }
+});
+
+module.exports = [
+    standardConfig, adminConfig,       
+];
