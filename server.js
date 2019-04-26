@@ -16,13 +16,13 @@ const userSchema = require('./database/userSchema.js');
 const passSchema = require('./database/passSchema.js');
 const classSchema = require('./database/classSchema.js');
 const orgSchema = require('./database/orgSchema.js');
+const crypto = require('crypto');
+const sm = require('sitemap');
 const User = mongoose.model('User', userSchema);
 const Pass = mongoose.model('Pass', passSchema);
 const Class = mongoose.model('Class', classSchema);
 const Org = mongoose.model('Org', orgSchema);
-const crypto = require('crypto');
 const { execSync } = require('child_process');
-
 
 const port = 80;
 
@@ -37,6 +37,14 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 // Set the secret key for making cookies/tokens
 app.set('superSecret', config.secret);
+
+var sitemap = sm.createSitemap ({
+  hostname: 'http://flashpassedu.com',
+  cacheTime: 600000,        // 600 sec - cache purge period
+  urls: [
+    { url: '/' },
+  ]
+});	
 
 // Configure the cookie parameters, maxAge is the expiration time and keys is what you use to sign cookies/tokens
 app.use(cookieSession({
@@ -119,8 +127,6 @@ app.use(function(req, res, next) {
 // Serve static assets
 app.use(express.static(__dirname + '/client/static'));
 
-app.use(express.static(__dirname + '/client/static/scripts'));
-
 app.post('/deploy', (req, res) => {
 	
 	let hmac = crypto.createHmac('sha1', config.webhookSecret);
@@ -141,14 +147,20 @@ app.post('/deploy', (req, res) => {
 	}
 });
 
+
+app.get('/sitemap.xml', function(req, res) {
+  sitemap.toXML( function (err, xml) {
+      if (err) {
+        return res.status(500).end();
+      }
+      res.header('Content-Type', 'application/xml');
+      res.send( xml );
+  });
+});
+
 // Send main page
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + "/client/static/Home/Home.html");
-});
-
-// Send css file
-app.get('/style.css', function(req, res) {
-	res.sendFile(__dirname + "/client/style.css");
 });
 
 // Generate QR Code

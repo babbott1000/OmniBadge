@@ -1,8 +1,13 @@
 const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
 const path = require('path');
+var common = require('./webpack.common.js');
 
-
+var devServer = {
+  devServer: {
+    contentBase: ['./client/static', './client/Admin'],
+  },
+}
+common = merge(common, devServer)
 var standardConfig = merge(common, {
   entry: {
     'home': './src/Home.js',
@@ -11,9 +16,6 @@ var standardConfig = merge(common, {
   },
   mode: 'development',
   devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './client'
-  },
   output: {
     path: path.resolve(__dirname, 'client/static/scripts'),
     filename: '[name].min.js',
@@ -26,9 +28,6 @@ var adminConfig = merge(common, {
   },
   mode: 'development',
   devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './client'
-  },
   output: {
     path: path.resolve(__dirname, 'client/admin'),
     filename: '[name].min.js',
