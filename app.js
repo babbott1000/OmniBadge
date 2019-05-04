@@ -5,7 +5,12 @@ function approveDomain(opts, certs, cb) {
 
   opts.email = 'flashpassedu@gmail.com';
   opts.agreeTos = true;
-  opts.domains = [ 'www.flashpassedu.com', 'flashpassedu.com' ];
+  opts.subject = 'flashpassedu.com';
+  opts.domains = [ '*.flashpassedu.com', 'flashpassedu.com' ];
+  if (!opts.challenges) { opts.challenges = {}; }
+  opts.challenges['dns-01'] = require('le-challenge-dns').create({});
+  opts.account = { id: opts.email };
+  opts.certificate = { id: opts.subject };
 
   cb(null, { options: opts, certs: certs });
 }
@@ -29,7 +34,7 @@ var greenlock = require('greenlock-express').create({
   require('./server.js')(req, res);
 }
 
-
+, store: require('le-store-fs')
 });
 
 // Run the server

@@ -16,5 +16,8 @@ Allow: /
 User-Agent: msnbot
 Allow: /
 
+User-Agent: Bingbot
+Allow: /
+
 User-Agent: *
 Disallow: /
