@@ -2,10 +2,11 @@
   "name": "flashpass",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "cluster.js",
   "scripts": {
-    "dev": "./node_modules/.bin/webpack-dev-server --content-base client  --config webpack.dev.js",
-    "stage": "./node_modules/.bin/nodemon server.js --ext *",
+    "dev": "./node_modules/.bin/webpack-dev-server --content-base client --config webpack.dev.js",
+    "start": "node app.js",
+    "stage": "./node_modules/.bin/nodemon app.js --ext *",
     "prod": "./node_modules/.bin/nodemon --ext *"
   },
   "author": "",
