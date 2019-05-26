@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server --content-base client --config webpack.dev.js",
     "start": "node app.js",
-    "stage": "./node_modules/.bin/nodemon app.js --ext *",
+    "stage": "./node_modules/.bin/nodemon app.js --dev --ext *",
     "prod": "./node_modules/.bin/nodemon --ext *"
   },
   "author": "",
@@ -29,6 +29,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
+    "commander": "^2.20.0",
     "cookie-parser": "^1.4.4",
     "cookie-session": "^1.3.3",
     "express": "^4.16.4",

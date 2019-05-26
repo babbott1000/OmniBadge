@@ -1,7 +1,7 @@
-const config = require('E:/config.js');
 const fs = require('fs');
 const express = require('express');
 const app = express();
+const program = require('commander');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
@@ -24,20 +24,30 @@ const Class = mongoose.model('Class', classSchema);
 const Org = mongoose.model('Org', orgSchema);
 const { execSync } = require('child_process');
 
+program
+  .version('0.1.0')
+  .option('-d, --dev', 'Don\'t load config or connect to DB')
+  .parse(process.argv);
+
+
 const port = 8080;
 
-// Connect to the database
-mongoose.connect(config.database, { useNewUrlParser: true });
+if (!program.dev) {
+	const config = require('E:/config.js');
 
-// Check the connection
-var db = mongoose.connection;
+	// Connect to the database
+	mongoose.connect(config.database, { useNewUrlParser: true });
 
-// Log any connection errors
-db.on('error', console.error.bind(console, 'connection error:'));
+	// Check the connection
+	var db = mongoose.connection;
 
+	// Log any connection errors
+	db.on('error', console.error.bind(console, 'connection error:'));
 
-// Set the secret key for making cookies/tokens
-app.set('superSecret', config.secret);
+	// Set the secret key for making cookies/tokens
+	app.set('superSecret', config.secret);
+
+}
 
 // Set port number as a global variable in app
 app.set('port', port);
@@ -64,15 +74,19 @@ app.use(passport.initialize());
 // Configure passport for persistant authentication
 app.use(passport.session());
 
-// Use this middleware function for OAuth
-passport.use(new GoogleStrategy({
-    clientID: config.oAuthClientID,
-    clientSecret: config.oAuthClientSecret,
-    callbackURL: config.oAuthCallbackURL
-  }, function(accessToken, refreshToken, profile, cb) {
-    cb(null, profile);
-  }
-));
+if (!program.dev) {
+
+	// Use this middleware function for OAuth
+	passport.use(new GoogleStrategy({
+	    clientID: config.oAuthClientID,
+	    clientSecret: config.oAuthClientSecret,
+	    callbackURL: config.oAuthCallbackURL
+	  }, function(accessToken, refreshToken, profile, cb) {
+	    cb(null, profile);
+	  }
+	));
+
+}
 
 // Encode the user
 passport.serializeUser((user, done) => {
@@ -133,26 +147,27 @@ app.use(function(req, res, next) {
 // Serve static assets
 app.use(express.static(__dirname + '/client/static'));
 
-app.post('/deploy', (req, res) => {
-	
-	let hmac = crypto.createHmac('sha1', config.webhookSecret);
-	let result = hmac.update(JSON.stringify(req.body)).digest('hex');
+if (!program.dev) {
+	app.post('/deploy', (req, res) => {
+		
+		let hmac = crypto.createHmac('sha1', config.webhookSecret);
+		let result = hmac.update(JSON.stringify(req.body)).digest('hex');
 
-	if(('sha1=' + result) == req.get('x-hub-signature')) {
-		if(req.body.ref == 'refs/heads/deploy') {
-			console.log('\x1b[35m%s\x1b[0m', 'New Version Detected, Pulling');
-			execSync('start cmd /k \"' + __dirname + '\\restart.bat\"');
+		if(('sha1=' + result) == req.get('x-hub-signature')) {
+			if(req.body.ref == 'refs/heads/deploy') {
+				console.log('\x1b[35m%s\x1b[0m', 'New Version Detected, Pulling');
+				execSync('start cmd /k \"' + __dirname + '\\restart.bat\"');
+			} else {
+				console.log('\x1b[36m%s\x1b[0m', 'Detected Push not on Deploy Branch');
+			}
+			res.status(200);
+			res.end();
 		} else {
-			console.log('\x1b[36m%s\x1b[0m', 'Detected Push not on Deploy Branch');
+			res.status(404);
+			res.end();
 		}
-		res.status(200);
-		res.end();
-	} else {
-		res.status(404);
-		res.end();
-	}
-});
-
+	});
+}
 
 app.get('/sitemap.xml', function(req, res) {
   sitemap.toXML( function (err, xml) {
