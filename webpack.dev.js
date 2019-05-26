@@ -4,30 +4,29 @@ var common = require('./webpack.common.js');
 
 var devServer = {
   devServer: {
-    contentBase: ['./client/static', './client/Admin'],
+    contentBase: [ path.join(__dirname,'client/static'), path.join(__dirname,'client/Admin') ]
   },
+  mode: 'development',
+  devtool: 'inline-source-map',
+
 }
-common = merge(common, devServer)
-var standardConfig = merge(common, {
+var dev = merge(common, devServer)
+var standardConfig = merge(dev, {
   entry: {
     'home': './src/Home.js',
     'pass': './src/Pass.js',
     'create': './src/Create.js'
   },
-  mode: 'development',
-  devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, 'client/static/scripts'),
     filename: '[name].min.js',
   }
 });
 
-var adminConfig = merge(common, {
+var adminConfig = merge(dev, {
   entry: {
     'admin': './src/Admin.js'
   },
-  mode: 'development',
-  devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, 'client/admin'),
     filename: '[name].min.js',
@@ -35,5 +34,5 @@ var adminConfig = merge(common, {
 });
 
 module.exports = [
-    standardConfig, adminConfig,       
+    standardConfig, adminConfig
 ];
