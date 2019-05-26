@@ -282,3 +282,9 @@ app.use(function(req, res) {
 
 // Export app(the main server object), used for HTTPS(server.js)
 module.exports = app;
+
+if(require.main === module) {
+	app.listen(port, function () {
+		console.log('Listening on port ' + port);
+	});
+}
