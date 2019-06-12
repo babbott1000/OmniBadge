@@ -24,16 +24,19 @@ const Class = mongoose.model('Class', classSchema);
 const Org = mongoose.model('Org', orgSchema);
 const { execSync } = require('child_process');
 
+var config;
+
 program
   .version('0.1.0')
-  .option('-d, --dev', 'Don\'t load config or connect to DB')
+  .option('-d, --dev', 'Don\'t load or connect to DB')
   .parse(process.argv);
 
 
 const port = 8080;
 
 if (!program.dev) {
-	const config = require('E:/config.js');
+
+	config = require('E:/config.js');
 
 	// Connect to the database
 	mongoose.connect(config.database, { useNewUrlParser: true });
@@ -69,12 +72,13 @@ app.use(cookieSession({
     httpOnly: false,
 }));
 
-// Initialize passport
-app.use(passport.initialize());
-// Configure passport for persistant authentication
-app.use(passport.session());
 
 if (!program.dev) {
+	// Initialize passport
+	app.use(passport.initialize());
+	// Configure passport for persistant authentication
+	app.use(passport.session());
+
 
 	// Use this middleware function for OAuth
 	passport.use(new GoogleStrategy({
@@ -86,37 +90,37 @@ if (!program.dev) {
 	  }
 	));
 
+
+	// Encode the user
+	passport.serializeUser((user, done) => {
+	    done(null, user);
+	});
+
+	// Decode the user
+	passport.deserializeUser((user, done) => {
+	    done(null, user);
+	});
+
+	// Check if the user is logged in
+	function isUserAuthenticated(req, res, next) {
+	    if (req.user) {
+	        next();
+	    } else {
+	        res.redirect('/');
+	    }
+	}
+
+	// Check if the user is logged in
+	function isUserAdmin(req, res, next) {
+	    if (req.user) {
+	    	User.find({ });
+	        next();
+	    } else {
+	        res.redirect('/');
+	    }
+	}
+
 }
-
-// Encode the user
-passport.serializeUser((user, done) => {
-    done(null, user);
-});
-
-// Decode the user
-passport.deserializeUser((user, done) => {
-    done(null, user);
-});
-
-// Check if the user is logged in
-function isUserAuthenticated(req, res, next) {
-    if (req.user) {
-        next();
-    } else {
-        res.redirect('/');
-    }
-}
-
-// Check if the user is logged in
-function isUserAdmin(req, res, next) {
-    if (req.user) {
-    	User.find({ });
-        next();
-    } else {
-        res.redirect('/');
-    }
-}
-
 
 // Configure Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -126,8 +130,10 @@ app.use(bodyParser.json());
 // Use cookie parser to intercept cookies
 app.use(cookieParser());
 
-// Sanitize input
-app.use(mongoSanitize());
+if (!program.dev) {
+	// Sanitize input
+	app.use(mongoSanitize());
+}
 
 app.use(morgan(':date[iso]'));
 
@@ -212,43 +218,73 @@ app.get('/newqr/:id', passport.authenticate('google'), function(req, res) {
 	}
 });
 
-// Set the time cookie
-/*app.get('/settime/:id', function(req, res) {
-	res.cookie('timeLeft', req.params.id, { maxAge: 900000, httpOnly: true });
-	res.send('good');
-});
-*/
 
-app.get('/newPass/:room', isUserAuthenticated, function(req, res) {
-	/*let student = new User({ id: req.user.id, firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: "Student" });
-	let pass = new Pass({ startTime: new Date(), duration: 60000, expiration: new Date(new Date().getTime()+60000), origin: req.params.room, destination: "Bathroom", return: true, student: student });
-	pass.save(function (err) {
-	  if (err) throw err;
-	});
-	console.log(req.user);
-	*/res.send("Thank you " + req.user.name.givenName + ", your pass has been recorded");
-})
+if (!program.dev) {
+	// Main authentication path
+	app.get('/auth', passport.authenticate('google', {
+	    scope: [ 'profile', 'email' ]
+	}));
 
-// Main authentication path
-app.get('/auth', passport.authenticate('google', {
-    scope: [ 'profile', 'email' ]
-}));
-
-// This gets called when authentication completes
-app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
-	User.findOne({ email: req.user._json.email }, function(err, user) {
-		if(user) {
-			if (user.role == 'student') {
-				res.redirect('/');
+	// This gets called when authentication completes
+	app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
+		User.findOne({ email: req.user._json.email }, function(err, user) {
+			if(user) {
+				if (user.role == 'student') {
+					res.redirect('/');
+				} else {
+					res.redirect('/admin');
+				}
 			} else {
+				User.create({ id: req.user.id, firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: 'student'})
 				res.redirect('/admin');
 			}
-		} else {
-			User.create({ id: req.user.id, firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: 'student'})
-			res.redirect('/admin');
-		}
+		})
+	});
+
+	app.get('/newPass/:room', isUserAuthenticated, function(req, res) {
+		/*let student = new User({ id: req.user.id, firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: "Student" });
+		let pass = new Pass({ startTime: new Date(), duration: 60000, expiration: new Date(new Date().getTime()+60000), origin: req.params.room, destination: "Bathroom", return: true, student: student });
+		pass.save(function (err) {
+		  if (err) throw err;
+		});
+		console.log(req.user);
+		*/res.send("Thank you " + req.user.name.givenName + ", your pass has been recorded");
 	})
-});
+
+
+
+	app.post('/students', isUserAuthenticated, (req, res) => {
+		User.find({}, function (err, users) {
+			res.json(users);
+		})
+	});
+
+	app.post('/passes', isUserAuthenticated, (req, res) => {
+		User.find({}, function (err, users) {
+			res.json(users);
+		})
+	});
+
+	app.get('/newOrg', isUserAuthenticated, (req, res) => {
+		res.send('TODO');
+	});
+
+	// This is a protected path, as shown by the isUserAuthenticated function
+	app.get('/admin', isUserAuthenticated, (req, res) => {
+		res.sendFile(__dirname + '/client/Admin/Admin.html');
+	});
+
+	app.get('/admin.min.js', isUserAuthenticated, (req, res) => {
+		res.sendFile(__dirname + '/client/Admin/admin.min.js');
+	});
+
+	app.get('/logout', isUserAuthenticated, (req, res) => {
+		req.logout();
+		res.redirect('/');
+	});
+
+
+}
 
 app.get('/create', (req, res) => {
 	res.sendFile(__dirname + '/client/static/Create/Create.html');
@@ -258,36 +294,6 @@ app.get('/pass', (req, res) => {
 	res.sendFile(__dirname + '/client/static/Pass/Pass.html');
 });
 
-app.post('/students', isUserAuthenticated, (req, res) => {
-	User.find({}, function (err, users) {
-		res.json(users);
-	})
-});
-
-app.post('/passes', isUserAuthenticated, (req, res) => {
-	User.find({}, function (err, users) {
-		res.json(users);
-	})
-});
-
-
-app.get('/newOrg', isUserAuthenticated, (req, res) => {
-	res.send('TODO');
-});
-
-// This is a protected path, as shown by the isUserAuthenticated function
-app.get('/admin', isUserAuthenticated, (req, res) => {
-	res.sendFile(__dirname + '/client/Admin/Admin.html');
-});
-
-app.get('/admin.min.js', isUserAuthenticated, (req, res) => {
-	res.sendFile(__dirname + '/client/Admin/admin.min.js');
-});
-
-app.get('/logout', isUserAuthenticated, (req, res) => {
-	req.logout();
-	res.redirect('/');
-});
 
 // Handle 404
 app.use(function(req, res) {
