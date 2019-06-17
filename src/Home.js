@@ -9,9 +9,9 @@ class Home extends React.Component{
     render() {
         return(
           <div>
-            <div className="header">
-              <img src="/logo.png" id="logo"></img>
-              FlashPassEDU
+            <div>
+              <img class="img" src="bytePassLogo5.png"></img>
+
             </div>
             <NavBar authed='false'/>
 
