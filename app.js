@@ -32,7 +32,7 @@ program
   .parse(process.argv);
 
 
-const port = 8080;
+const port = 80;
 
 if (!program.dev) {
 
