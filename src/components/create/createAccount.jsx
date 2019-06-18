@@ -1,6 +1,8 @@
 import React from 'react';
 import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import Jumbotron from "react-bootstrap/Jumbotron";
+import Container from "react-bootstrap/Container";
 
 //TODO change the redirect link
 //TODO MIME CHECK
@@ -17,11 +19,15 @@ export class CreateAccount extends React.Component {
         }
         return (
             <div>
-                <h1>The account you have logged in does not have an account
-                    associated with us.
-                </h1>
-                <br/>
-                <h1>Would you like to create one?</h1>
+                <Jumbotron fluid>
+                    <Container>
+                        <h1>Oops!</h1>
+                        <p>
+                            The account you have logged in does not have an account
+                            associated with us. Would you like to create one?
+                        </p>
+                    </Container>
+                </Jumbotron>
                 <ButtonToolbar>
                     <Button
                         variant="success"
