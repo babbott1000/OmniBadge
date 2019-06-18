@@ -3,10 +3,10 @@
 // Check if domain is valid
 function approveDomain(opts, certs, cb) {
 
-  opts.email = 'flashpassedu@gmail.com';
+  opts.email = 'bytepassedu@gmail.com';
   opts.agreeTos = true;
-  opts.subject = 'flashpassedu.com';
-  opts.domains = [ opts.subject ,'*.flashpassedu.com' ];
+  opts.subject = 'bytepassedu.com';
+  opts.domains = [ opts.subject ,'*.bytepassedu.com' ];
   if (!opts.challenges) { opts.challenges = {}; }
   opts.challenges['dns-01'] = require('le-challenge-dns').create({});
   opts.account = { id: opts.email };
@@ -27,7 +27,7 @@ var greenlock = require('greenlock-express').create({
   approveDomain(opts, certs, cb);
 }
   // Where certs are stored
-, configDir: 'C:/Users/Ben/acme'
+, configDir: '~/acme'
   
   // Setup the server
 , app: function (req, res) {
@@ -38,4 +38,4 @@ var greenlock = require('greenlock-express').create({
 });
 
 // Run the server
-var server = greenlock.listen(8080, 443);
+var server = greenlock.listen(80, 443);
