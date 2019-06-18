@@ -10,10 +10,10 @@ class Home extends React.Component{
         return(
           <div>
             <div>
-              <img class="img" src="bytePassLogo5.png"></img>
+              <img class="img" src="bytePassBanner.png"></img>
 
-            </div>
-            <NavBar authed='false'/>
+              </div>
+              <NavBar authed='false'/>
 
           </div>
         );

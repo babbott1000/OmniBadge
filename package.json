@@ -4,10 +4,9 @@
   "description": "",
   "main": "cluster.js",
   "scripts": {
-    "dev": "./node_modules/.bin/webpack-dev-server --content-base client --config webpack.dev.js",
     "build": "./node_modules/.bin/webpack --config webpack.prod.js", 
     "start": "node app.js",
-    "stage": "./node_modules/.bin/nodemon app.js --dev --ext *",
+    "dev": "./node_modules/.bin/nodemon app.js --dev --ext *",
     "prod": "./node_modules/.bin/nodemon --ext *"
   },
   "author": "",
