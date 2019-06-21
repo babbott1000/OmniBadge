@@ -26,6 +26,116 @@ const { execSync } = require('child_process');
 
 var config;
 
+var devUsers = [
+	{
+		_id: 'lX34LX92Uf5iu67C',
+		id: 'pQBTAXjdmtcXKLtz',
+		firstName: 'Jack',
+		lastName: 'Baude',
+		email: 'fake@email.com',
+		teacher: false,
+		owner: false
+	},	{
+		_id: 'ncLh2I187KN0Kw1T',
+		id: 'YSuck3Mwy7VdUKSh',
+		firstName: 'Jack',
+		lastName: 'Baude',
+		email: 'fake@email.com',
+		teacher: false,
+		owner: false
+	},	{
+		_id: 'nEUsIjKkxPCjcFsI',
+		id: 'rgpquXhCmSTD99JG',
+		firstName: 'Jack',
+		lastName: 'Baude',
+		email: 'fake@email.com',
+		teacher: false,
+		owner: false
+	},
+]
+
+var devPasses = [
+	{
+		_id: 'lpXPjXsQ7yl74ui3',
+		startTime: new Date(869207000),
+		duration: 300,
+		expiration: new Date(869507000),
+		origin: 'woodBetweenTheWorlds',
+		teacher: 	{
+			_id: 'UMZl9OWQ8saQfKnD',
+			id: 'C9VDwIRoYvL8QlxT',
+			firstName: 'The',
+			lastName: 'Springer',
+			email: 'fake@email.com',
+			teacher: false,
+			owner: false
+		},
+		destination: 'wonderland',
+		return: false,
+		student: 	{
+			_id: 'nEUsIjKkxPCjcFsI',
+			id: 'rgpquXhCmSTD99JG',
+			firstName: 'Jack',
+			lastName: 'Baude',
+			email: 'fake@email.com',
+			teacher: false,
+			owner: false
+		}
+	},	{
+		_id: '1valhTtbAVYTVTWJ',
+		startTime: new Date(1321270000),
+		duration: 300,
+		expiration: new Date(1321570000),
+		origin: 'woodBetweenTheWorlds',
+		teacher: 	{
+			_id: 'UMZl9OWQ8saQfKnD',
+			id: 'C9VDwIRoYvL8QlxT',
+			firstName: 'The',
+			lastName: 'Springer',
+			email: 'fake@email.com',
+			teacher: false,
+			owner: false
+		},
+		destination: 'wonderland',
+		return: false,
+		student: 	{
+			_id: 'nEUsIjKkxPCjcFsI',
+			id: 'rgpquXhCmSTD99JG',
+			firstName: 'Jack',
+			lastName: 'Baude',
+			email: 'fake@email.com',
+			teacher: false,
+			owner: false
+		}
+	},	{
+		_id: 'xoxH5LAfWZuNmdX0',
+		startTime: new Date(1478543000),
+		duration: 300,
+		expiration: new Date(1478843000),
+		origin: 'woodBetweenTheWorlds',
+		teacher: 	{
+			_id: 'UMZl9OWQ8saQfKnD',
+			id: 'C9VDwIRoYvL8QlxT',
+			firstName: 'The',
+			lastName: 'Springer',
+			email: 'fake@email.com',
+			teacher: false,
+			owner: false
+		},
+		destination: 'wonderland',
+		return: false,
+		student: 	{
+			_id: 'nEUsIjKkxPCjcFsI',
+			id: 'rgpquXhCmSTD99JG',
+			firstName: 'Jack',
+			lastName: 'Baude',
+			email: 'fake@email.com',
+			teacher: false,
+			owner: false
+		}
+	},
+]
+
 program
   .version('0.1.0')
   .option('-d, --dev', 'Don\'t load or connect to DB')
@@ -35,8 +145,6 @@ program
 const port = 80;
 
 if (!program.dev) {
-
-	config = require('E:/config.js');
 
 	// Connect to the database
 	mongoose.connect(config.database, { useNewUrlParser: true });
@@ -181,7 +289,7 @@ app.get('/sitemap.xml', function(req, res) {
         return res.status(500).end();
       }
       res.header('Content-Type', 'application/xml');
-      res.send( xml );
+      res.send(xml);
   });
 });
 
@@ -192,7 +300,7 @@ app.get('/', function(req, res) {
 
 // Generate QR Code
 app.get('/newqr/:id', passport.authenticate('google'), function(req, res) {
-	// If the data is too long then end the request because windows doesn't like long file names
+	// If the data is too long then end the request because long file names make the OS sad :(
 	if(req.params.id.length > 240) {
 		res.send('Too Long!');
 		res.end();
@@ -224,23 +332,29 @@ if (!program.dev) {
 	app.get('/auth', passport.authenticate('google', {
 	    scope: [ 'profile', 'email' ]
 	}));
+} else {
+	app.get('/auth', function(req, res) {
+		res.redirect('/admin');
+	});
+}
 
-	// This gets called when authentication completes
-	app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
-		User.findOne({ email: req.user._json.email }, function(err, user) {
-			if(user) {
-				if (user.role == 'student') {
-					res.redirect('/');
-				} else {
-					res.redirect('/admin');
-				}
+// This gets called when authentication completes
+app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
+	User.findOne({ email: req.user._json.email }, function(err, user) {
+		if(user) {
+			if (user.role == 'student') {
+				res.redirect('/');
 			} else {
-				User.create({ id: req.user.id, firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: 'student'})
 				res.redirect('/admin');
 			}
-		})
-	});
+		} else {
+			User.create({ id: req.user.id, firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: 'student'})
+			res.redirect('/admin');
+		}
+	})
+});
 
+if(!program.dev) {
 	app.get('/newPass/:room', isUserAuthenticated, function(req, res) {
 		/*let student = new User({ id: req.user.id, firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: "Student" });
 		let pass = new Pass({ startTime: new Date(), duration: 60000, expiration: new Date(new Date().getTime()+60000), origin: req.params.room, destination: "Bathroom", return: true, student: student });
@@ -249,9 +363,7 @@ if (!program.dev) {
 		});
 		console.log(req.user);
 		*/res.send("Thank you " + req.user.name.givenName + ", your pass has been recorded");
-	})
-
-
+	});
 
 	app.post('/students', isUserAuthenticated, (req, res) => {
 		User.find({}, function (err, users) {
@@ -260,10 +372,23 @@ if (!program.dev) {
 	});
 
 	app.post('/passes', isUserAuthenticated, (req, res) => {
-		User.find({}, function (err, users) {
-			res.json(users);
+		User.find({}, function (err, passes) {
+			res.json(passes);
 		})
 	});
+} else {
+	app.post('/students', (req, res) => {
+		res.json(devUsers);
+	});
+
+	app.post('/passes', (req, res) => {
+		res.json(devPasses);
+	});
+}
+
+
+
+if(!program.dev) {
 
 	app.get('/newOrg', isUserAuthenticated, (req, res) => {
 		res.send('TODO');
@@ -284,7 +409,20 @@ if (!program.dev) {
 	});
 
 
+} else {
+	app.get('/admin', (req, res) => {
+		res.sendFile(__dirname + '/client/Admin/Admin.html');
+	});
+
+	app.get('/admin.min.js', (req, res) => {
+		res.sendFile(__dirname + '/client/Admin/admin.min.js');
+	});
+
+	app.get('/logout', (req, res) => {
+		res.redirect('/');
+	});
 }
+
 
 app.get('/create', (req, res) => {
 	res.sendFile(__dirname + '/client/static/Create/Create.html');
