@@ -1,5 +1,5 @@
-![Logo](https://github.com/babbott1000/flashPassEDU/blob/master/client/static/logo.png)
-# Flash Pass EDU
+![Logo](https://github.com/babbott1000/BytePass/blob/master/client/static/bytePassBanner.png)
+# BytePass
 
 A School Pass System
 
