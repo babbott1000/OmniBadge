@@ -4,10 +4,12 @@
   "description": "",
   "main": "cluster.js",
   "scripts": {
-    "build": "./node_modules/.bin/webpack --config webpack.prod.js", 
+    "build": "./node_modules/.bin/webpack --config webpack.prod.js",
     "start": "node app.js",
     "dev": "./node_modules/.bin/nodemon app.js --dev --ext *",
-    "prod": "./node_modules/.bin/nodemon --ext *"
+    "prod": "./node_modules/.bin/nodemon --ext *",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "",
   "license": "ISC",
@@ -50,6 +52,8 @@
     "react-dom": "^16.8.6",
     "react-tabs": "^3.0.0",
     "sitemap": "^2.1.0",
-    "webpack-merge": "^4.2.1"
-  }
+    "webpack-merge": "^4.2.1",
+    "snyk": "^1.189.0"
+  },
+  "snyk": true
 }
