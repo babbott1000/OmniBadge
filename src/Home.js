@@ -9,10 +9,7 @@ class Home extends React.Component{
     render() {
         return(
           <div>
-            <div>
-              <img class="img" src="bytePassBanner.png"></img>
 
-              </div>
               <NavBar authed='false'/>
 
           </div>

@@ -1,32 +1,48 @@
 
 .header {
-	text-align: center;
-	height: 2em;
-	line-height: 2em;
-	font-size: 50px;
+    text-align: center;
+    height: 2em;
+    line-height: 2em;
+    font-size: 50px;
 }
 
 .img {
-	width: 100%;
-	height: 25%;
-	-webkit-filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.125));
+    width: 100%;
+    height: 25%;
+    -webkit-filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.125));
 
 
 }
-.timerValid {
-	text-align: center;
-	background-color: green;
-	font-size: 100px;
+
+.navbar{
+    background-color: cornflowerblue!important;
+    font-family: 'Lato', sans-serif;
+    font-weight: lighter!important;
+}
+
+.navbar .navbar-brand{
+    font-size: 50px;
+    font-weight: lighter;
+    color: #ffffff!important;
+    margin-left: 15px;
+}
+.navbar .navbar-brand:hover{
+    color: #f0f0f0!important;
+}
+.navbar .navbar-nav li a{
+    color: #ffffff !important;
+    font-size: 36px;
+    marign-right: 25 px;
+    margin-left: 25px;;
 
 }
-.timerInvalid {
-	text-align: center;
-	background-color: red;
-	font-size: 100px;
+.navbar .navbar-nav li a:hover{
+    color: #f0f0f0 !important;
+
 }
-.person{
-	text-align: center;
-	font-size: 100px;
-	color: dodgerblue;
+
+.side{
+    margin-right: 100px;
 }
+
 
