@@ -431,11 +431,14 @@ app.get('/create', (req, res) => {
 app.get('/pass', (req, res) => {
 	res.sendFile(__dirname + '/client/static/Pass/Pass.html');
 });
+app.get('/about', (req, res) => {
+	res.sendFile(__dirname + '/client/static/About/About.html');
+});
 
 
 // Handle 404
 app.use(function(req, res) {
-	res.status(404).send('404: Page not Found');
+	res.status(404).send('Oh..... this is kinda awkward... sorry :((');
 });
 
 
