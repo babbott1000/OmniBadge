@@ -16,6 +16,7 @@ var standardConfig = merge(dev, {
     'home': './src/Home.js',
     'pass': './src/Pass.js',
     'create': './src/Create.js'
+    'about': './src/About.js'
     'errornotfound': './src/ErrorNotFound.js'
   },
   output: {
