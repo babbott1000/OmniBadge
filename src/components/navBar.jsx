@@ -39,7 +39,7 @@ export class NavBar extends React.Component {
                                 <a className="nav-link" href="#">Login</a>
                             </li>
                             <li className="nav-item side">
-                                <a className="nav-link" href="#">Register</a>
+                                <a className="nav-link" href="#">Sign up</a>
                             </li>
                         </ul>
                     </div>

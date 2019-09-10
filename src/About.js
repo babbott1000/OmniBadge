@@ -2,19 +2,31 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import {Aboutus, ThePeople} from "./components/about/thePeople.jsx";
 import {TheProject} from "./components/about/theProject.jsx";
-import {ThePersona} from "./components/about/thePersona.jsx";
+import {NavBar} from "./components/navBar.jsx";
 
-class About extends React.Component{
 
-    render() {H
-        return(
+class About extends React.Component {
+
+    render() {
+
+        return (
             <div>
-                <h1> The project </h1>
-                <TheProject/>
-                <h1> The people </h1>
-                <ThePeople/>
-                <h1> The persona </h1>
-                <ThePersona/>
+                <NavBar/>
+
+                <div>
+                    <h1 className="aboutheader"> About us </h1>
+                </div>
+                <div>
+                    <div>
+                        <h1 className="aboutheader"> The project </h1>
+                        <TheProject/>
+                    </div>
+
+                    <div>
+                        <h1 className="aboutheader"> The people </h1>
+                        <ThePeople/>
+                    </div>
+                </div>
 
             </div>
         );
