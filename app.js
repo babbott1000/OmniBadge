@@ -436,9 +436,9 @@ app.get('/about', (req, res) => {
 });
 
 
-// Handle 404
+// Handle ErrorNotFound
 app.use(function(req, res) {
-	res.status(404).send('Oh..... this is kinda awkward... sorry :((');
+	res.sendFile(__dirname + '/client/static/ErrorNotFound/ErrorNotFound.html');
 });
 
 
