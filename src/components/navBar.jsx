@@ -17,7 +17,7 @@ export class NavBar extends React.Component {
             <div>
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a className="navbar-brand" href="#">BytePass</a>
+                    <a className="navbar-brand" href="/">BytePass</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#myNavbar" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -27,19 +27,19 @@ export class NavBar extends React.Component {
 
                         <ul className="ml-auto navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Home</a>
+                                <a className="nav-link" href="/">Home</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">About Us</a>
+                                <a className="nav-link" href="/about">About Us</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Contact Us</a>
+                                <a className="nav-link" href="/Contact">Contact Us</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Login</a>
+                                <a className="nav-link" href="/">Login</a>
                             </li>
                             <li className="nav-item side">
-                                <a className="nav-link" href="#">Sign up</a>
+                                <a className="nav-link" href="/">Sign up</a>
                             </li>
                         </ul>
                     </div>
