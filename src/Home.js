@@ -8,11 +8,11 @@ class Home extends React.Component{
 
     render() {
         return(
-          <div>
+            <div>
 
-              <NavBar authed='false'/>
-
-          </div>
+                <NavBar authed='false'/>
+                <h1 className="header"> Byte Pass </h1>
+            </div>
         );
     }
 }
