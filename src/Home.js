@@ -3,6 +3,7 @@
 import React from 'react';
 import ReactDOM from "react-dom";
 import { NavBar } from "./components/navBar.jsx";
+import {Footer} from "./components/footer.jsx";
 
 class Home extends React.Component{
 
@@ -12,6 +13,8 @@ class Home extends React.Component{
 
                 <NavBar authed='false'/>
                 <h1 className="header"> Byte Pass </h1>
+                <Footer/>
+
             </div>
         );
     }

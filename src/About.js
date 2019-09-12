@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import {Aboutus, ThePeople} from "./components/about/thePeople.jsx";
 import {TheProject} from "./components/about/theProject.jsx";
 import {NavBar} from "./components/navBar.jsx";
+import {Footer} from "./components/footer.jsx";
 
 
 class About extends React.Component {
@@ -28,7 +29,7 @@ class About extends React.Component {
 
                     </div>
                 </div>
-
+                <Footer/>
             </div>
         );
     }

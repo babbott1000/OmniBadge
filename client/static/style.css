@@ -37,7 +37,7 @@
     margin-right: 100px;
 }
 
-.header {
+.header{
     font-size: 100px;
     color: #828282;
     text-align: center;
@@ -53,6 +53,15 @@
     margin-right: 100px;
     margin-left: 100px;
 }
+
+.footerInfo{
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: Segoe UI;
+    font-size: 10px;
+    color: #828282;
+}
+
 
 
 .slideInLeft {

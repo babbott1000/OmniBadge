@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from "react-dom";
+import {Footer} from "./components/footer.jsx";
 
 
 class ErrorNotFound extends React.Component{
@@ -10,7 +11,9 @@ class ErrorNotFound extends React.Component{
 
 
                 <h1 className="header"> BRUHHHHH </h1>
+                <Footer/>
             </div>
+
         );
     }
 }
