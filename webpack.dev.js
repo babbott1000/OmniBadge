@@ -15,7 +15,9 @@ var standardConfig = merge(dev, {
   entry: {
     'home': './src/Home.js',
     'pass': './src/Pass.js',
-    'create': './src/Create.js'
+    'create': './src/Create.js',
+    'about': './src/About.js',
+    'errorNotFound': './src/ErrorNotFound.js'
   },
   output: {
     path: path.resolve(__dirname, 'client/static/scripts'),

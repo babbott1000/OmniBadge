@@ -1,6 +1,4 @@
 import React from 'react';
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 
 export class NavBar extends React.Component {
 
@@ -14,34 +12,38 @@ export class NavBar extends React.Component {
 
     }
 
-
     render() {
-
         return (
             <div>
 
-                    <Nav fill variant="tabs" className="justify-content-center" >
-                        <Nav.Item>
-                            <Nav.Link href="/">Home</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link href="/newOrg">Create Organization</Nav.Link>
-                        </Nav.Item>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a className="navbar-brand" href="/">BytePass</a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#myNavbar" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="myNavbar">
 
-                        {this.state.auth == 'true' ? (<Nav.Item>
-                            <Nav.Link href="/logout">Logout</Nav.Link>
-                        </Nav.Item>) : (<Nav.Item>
-                            <Nav.Link href="/auth">Login</Nav.Link>
-                        </Nav.Item>)
-                        }
-
-
-                        {this.state.auth != 'true' && (<Nav.Item>
-                            <Nav.Link href="/create">Sign up</Nav.Link>
-                        </Nav.Item>)
-                        }
-                    </Nav>
-
+                        <ul className="ml-auto navbar-nav">
+                            <li className="nav-item">
+                                <a className="nav-link" href="/">Home</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/about">About Us</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/Contact">Contact Us</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/">Login</a>
+                            </li>
+                            <li className="nav-item side">
+                                <a className="nav-link" href="/">Sign up</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
             </div>
         );
     }
