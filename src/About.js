@@ -11,25 +11,29 @@ class About extends React.Component {
     render() {
 
         return (
-            <div className="slideInLeft">
+
+            <div>
                 <NavBar/>
 
-                <div style ={{position: 'relative', top:'10px'}}>
-                    <h1 className="header"> About us </h1>
+                <div>
+                    <h1 className="aboutUsHeader"> About Us </h1>
                 </div>
-                <div style ={{position: 'relative', top:'310px'}}>
+                <div>
                     <div>
-                        <h1 className="header"> The project </h1>
+                        <h1 className="aboutUsSubHeaders"> The project </h1>
                         <TheProject className="abouttext"/>
                     </div>
 
-                    <div style ={{position: 'relative', top:'110px'}}>
-                        <h1 className="header"> The people </h1>
+                    <div>
+                        <h1 className="aboutUsSubHeaders"> The people </h1>
                         <ThePeople className="abouttext"/>
 
                     </div>
                 </div>
-                <Footer/>
+                <div>
+                    <Footer/>
+                </div>
+
             </div>
         );
     }

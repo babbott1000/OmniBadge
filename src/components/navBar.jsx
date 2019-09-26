@@ -16,7 +16,7 @@ export class NavBar extends React.Component {
         return (
             <div>
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light">
                     <a className="navbar-brand" href="/">BytePass</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#myNavbar" aria-controls="navbarSupportedContent"
@@ -33,7 +33,7 @@ export class NavBar extends React.Component {
                                 <a className="nav-link" href="/about">About Us</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/Contact">Contact Us</a>
+                                <a className="nav-link" href="/contact">Contact Us</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/">Login</a>

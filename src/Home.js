@@ -13,6 +13,7 @@ class Home extends React.Component{
 
                 <NavBar authed='false'/>
                 <h1 className="header"> Byte Pass </h1>
+                <div className="spacingBox"></div>
                 <Footer/>
 
             </div>
