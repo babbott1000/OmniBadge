@@ -1,11 +1,9 @@
 {
-	"restartable": "rs",
 	"ignore": [
 		"client"
 	],
 	"events": {
-		"start": "npx webpack --config webpack.prod.js",
-		"exit ": "exit"
+		"start": "npx webpack --config webpack.prod.js"
 	},
 	"verbose": true
 }
