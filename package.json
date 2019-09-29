@@ -6,8 +6,8 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack --config webpack.prod.js",
     "start": "node app.js",
-    "dev": "./node_modules/.bin/nodemon app.js --dev --ext *",
-    "prod": "./node_modules/.bin/nodemon --ext *",
+    "dev": "npx nodemon --ext .* app.js -- --dev",
+    "prod": "npx nodemon --ext *",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
