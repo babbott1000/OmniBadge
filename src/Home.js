@@ -6,7 +6,7 @@ import { NavBar } from "./components/navBar.jsx";
 import {Footer} from "./components/footer.jsx";
 
 class Home extends React.Component{
-
+//This is the home page and this is what the client goes to when they go to /
     render() {
         return(
             <div>

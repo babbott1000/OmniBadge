@@ -5,7 +5,7 @@ import { Timer } from "./components/pass/timer.jsx";
 import { Person } from "./components/pass/person.jsx";
 
 class Pass extends React.Component{
-
+//this is the pass - no longer in use
     render() {
         return(
             <div>
