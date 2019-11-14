@@ -52,7 +52,7 @@
     "react-dom": "^16.10.1",
     "react-tabs": "^3.0.0",
     "sitemap": "^2.2.0",
-    "snyk": "^1.228.5",
+    "snyk": "^1.230.5",
     "webpack-merge": "^4.2.2"
   },
   "snyk": true
