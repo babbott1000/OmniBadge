@@ -2,7 +2,7 @@ import React from 'react';
 
 export class NavBar extends React.Component {
 
-
+    //this is the navbar and it includes all of the cd into all of the pages that we have right now
     constructor(props) {
         super(props);
         this.state = {

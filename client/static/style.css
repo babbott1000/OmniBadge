@@ -1,3 +1,4 @@
+/* this is the class that all default headers get*/
 h1 {
     font-size: 100px;
     color: #828282;
@@ -5,6 +6,7 @@ h1 {
     text-decoration: underline;
     padding: 20px;
 }
+/* THis is the main header for the about us page*/
 h1.aboutUsHeader{
     font-size: 150px;
     color: #828282;
@@ -13,6 +15,7 @@ h1.aboutUsHeader{
     padding: 40px;
 
 }
+/* This is the subheaders for the about us page*/
 h1.aboutUsSubHeaders{
     font-size: 100px;
     color: #828282;
@@ -27,7 +30,7 @@ h1.aboutUsSubHeaders{
 
 }
 
-
+/* All the class information about the footer - which goes to the bottom*/
 .footerInfo{
     width: 100%;
     height: 80px;
@@ -45,7 +48,7 @@ h1.aboutUsSubHeaders{
 
 
 }
-
+/* This is the entiery of the navbar*/
 .navbar {
     position: sticky;
     top: 0;
@@ -56,7 +59,7 @@ h1.aboutUsSubHeaders{
     height: 80px;
 
 }
-
+/*This is the brand on the navbar - what you see on the far left*/
 .navbar .navbar-brand {
     font-size: 36px;
     font-weight: lighter;
@@ -64,11 +67,11 @@ h1.aboutUsSubHeaders{
     margin-left: 15px;
     -webkit-filter: drop-shadow(7px 7px 7px rgba(0, 0, 0, 0.125));
 }
-
+/* When you hover on the brand the color changes*/
 .navbar .navbar-brand:hover {
     color: #f0f0f0 !important;
 }
-
+/*all of the list eletmetns with a hyper link have this class - all the nav options*/
 .navbar .navbar-nav li a {
     color: #ffffff !important;
     font-size: 24px;
@@ -77,31 +80,31 @@ h1.aboutUsSubHeaders{
     padding: 14px 16px;
 
 }
-
+/*When you hover on the hyperlink in the navbar they get this addtional class*/
 .navbar .navbar-nav li a:hover {
     color: #f0f0f0 !important;
     border-bottom: 2px solid #ffffff;
     padding-bottom: 10px
 
 }
-
+/*When ever the nav is active or on that page*/
 .navbar .navbar-nav li a:active {
     border-bottom: 2px solid #ffffff;
     padding-bottom: 10px
 
 }
-
+/*Class to space all the nav items a little to the left*/
 .side {
     margin-right: 100px;
 }
-
+/*A spacing box for the main page*/
 .spacingBox{
     width: 100%;
     height: 1000px;
 }
 
 
-
+/*The style for the text in the avbout page*/
 .abouttext {
     font-family: Segoe UI;
     font-size: 24px;
@@ -116,14 +119,14 @@ h1.aboutUsSubHeaders{
     animation-fill-mode: forwards;
 }
 
-
+/*The body of the 404 not found page*/
 .notFound {
     width: 100%;
     height: 100%;
     background-color: black;
 }
 
-
+/*Wrapper that goes around the div for the 404 page*/
 .wrapper {
     width: 100%;
     height: 100%;
@@ -131,6 +134,7 @@ h1.aboutUsSubHeaders{
     justify-content: center;
     align-items: center;
 }
+/*All headings with the glitch class have this*/
 .wrapper h1.glitch {
     color: white;
     font-family: sans-serif;
@@ -139,6 +143,7 @@ h1.aboutUsSubHeaders{
     font-size: 100px;
     padding: 30px;
 }
+/*The heading inside wrapper with the glitch class gets this item before and after */
 .wrapper h1.glitch::before, .wrapper h1.glitch::after {
     padding: 30px;
     color: white;
@@ -150,6 +155,14 @@ h1.aboutUsSubHeaders{
     overflow: hidden;
     top: 0;
 }
+/*In front of the heading inside the wrapper with the glitch class before gets this
+    -it moves a copy to the left 3 px
+    - adds a red text shadow of 2px
+    - it adds the glitch animation 1 at a liner speed with no animation delay on load of the DOM
+        that goes on forever and will go back
+
+
+*/
 .wrapper h1.glitch::before {
     left: 3px;
     text-shadow: -2px 0 red;
@@ -160,6 +173,14 @@ h1.aboutUsSubHeaders{
     animation-iteration-count: infinite;
     animation-direction: reverse-alternate;
 }
+/*In front of the heading inside the wrapper with the glitch class after gets this
+    -it moves a copy to the right 3 px
+    - adds a blue text shadow of 2px
+    - it adds the glitch animation 1 at a liner speed with no animation delay on load of the DOM
+        that goes on forever and will go back
+
+
+*/
 .wrapper h1.glitch::after {
     left: -3px;
     text-shadow: -2px 0 blue;
@@ -170,6 +191,7 @@ h1.aboutUsSubHeaders{
     animation-iteration-count: infinite;
     animation-direction: reverse-alternate;
 }
+/*Animations for items to fade in on load of the DOM*/
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -178,6 +200,7 @@ h1.aboutUsSubHeaders{
         opacity: 1;
     }
 }
+/*Keyframs that move the rectangle around in animation 1*/
 @keyframes glitch-animation-1 {
     0% {
         clip: rect(88px, 350px, 13px, 30px);
@@ -243,6 +266,7 @@ h1.aboutUsSubHeaders{
         clip: rect(78px, 350px, 88px, 30px);
     }
 }
+/*Same thing as above but animation 2*/
 @keyframes glitch-animation-2 {
     0% {
         clip: rect(36px, 350px, 85px, 30px);

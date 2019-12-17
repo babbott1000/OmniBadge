@@ -7,7 +7,7 @@ import {Footer} from "./components/footer.jsx";
 
 
 class About extends React.Component {
-
+    //This is the about us page and has everything to do with about us and our misson if you will
     render() {
 
         return (
