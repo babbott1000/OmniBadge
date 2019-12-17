@@ -40,7 +40,7 @@
     "jsonwebtoken": "^8.5.1",
     "le-challenge-dns": "^3.0.7",
     "le-store-fs": "^1.0.3",
-    "mongoose": "^5.7.1",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.3",
     "passport": "^0.4.0",
@@ -52,7 +52,7 @@
     "react-dom": "^16.10.1",
     "react-tabs": "^3.0.0",
     "sitemap": "^2.2.0",
-    "snyk": "^1.228.5",
+    "snyk": "^1.230.5",
     "webpack-merge": "^4.2.2"
   },
   "snyk": true
