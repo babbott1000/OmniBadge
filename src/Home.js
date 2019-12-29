@@ -12,8 +12,8 @@ class Home extends React.Component{
         return(
             <div>
                 <NavBar authed="false"/>
-                <h1 className="header"> OmniBadge </h1>
-                <div className="spacingBox"></div>
+                <h1 className="header">OmniBadge</h1>
+                <div className="footerSpacer"></div>
                 <Footer/>
             </div>
         );

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import {Footer} from "./components/Footer.jsx";
+import { NavBar } from "./components/NavBar.jsx";
+import { Footer } from "./components/Footer.jsx";
 
 
 class ErrorNotFound extends React.Component{
@@ -8,12 +9,15 @@ class ErrorNotFound extends React.Component{
     render() {
         let wrongPath = window.location.pathname;
         return(
-            <div className="notFound">
-                <div className="wrapper">
-                    <h1 className="glitch">404</h1>
+            <div>
+                <NavBar/>
+                <div className="notFound">
+                    <h1>404</h1>
+                    <h2>The page you were looking for cannot be found.  Try navigating to another page using the links above.</h2>
+                    <div className="footerSpacer"></div>
                 </div>
+                <Footer/>
             </div>
-
         );
     }
 }

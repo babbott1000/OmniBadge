@@ -1,4 +1,14 @@
-/* Style for h2 header */
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  height: 100%;
+}
+
+
+/* Style for h1 header */
 h1 {
     font-size: 5vw;
     color: #828282;
@@ -18,7 +28,7 @@ h2 {
     opacity: 0;
     animation-name: fadeIn;
     animation-duration: 2s;
-    animation-delay: 1s;
+    animation-delay: .25s;
     animation-fill-mode: forwards;
 
 }
@@ -28,24 +38,34 @@ h2 {
 p {
     font-family: Segoe UI;
     font-size: 1.5vw;
+    margin-left: 12vw;
+    margin-right: 12vw;
     text-align: center;
-    margin-right: 100px;
-    margin-left: 100px;
     padding: 20px;
     opacity: 0;
     animation-name: fadeIn;
     animation-duration: 2s;
-    animation-delay: 1s;
+    animation-delay: .25s;
     animation-fill-mode: forwards;
+}
+
+/* Hyperlink styling */
+a {
+    text-decoration: none;
+    color: FireBrick;
+    transition: 0.1s;
+}
+
+/* Hyperlink styling */
+a:hover {
+    text-decoration: none;
+    color: OrangeRed;
 }
 
 
 /* All the class information about the footer - which goes to the bottom*/
 footer {
-    width: 100%;
-    height: 80px;
     text-align: center;
-    font-size: 10px;
     color: white;
     padding: 15px;
     background-color: #696969;
@@ -53,14 +73,47 @@ footer {
     opacity: 0;
     animation-name: fadeIn;
     animation-duration: 2s;
-    animation-delay: 1s;
+    animation-delay: .25s;
     animation-fill-mode: forwards;
-
-
 }
+
+footer p {
+    margin: 0;
+    margin-top: 20px;
+    font-family: Segoe UI;
+    font-size: 1.5vw;
+    text-align: center;
+    padding: 0;
+    opacity: 0;
+    animation-name: fadeIn;
+    animation-duration: 2.0s;
+    animation-delay: .25s;
+    animation-fill-mode: forwards;
+}
+
+/* Phones */
+@media (max-aspect-ratio: 6/5) {
+    h1 {
+        font-size: 8vh;
+    }
+    h2 {
+        font-size: 5vh;
+    }
+    p {
+        font-size: 3vh;
+    }
+    footer p {
+        font-size: 3vh;
+    }
+}
+
+.footerSpacer {
+    width: 100%;
+    height: 60vh;
+}
+
 /* This is the entiery of the navbar*/
 .navbar {
-    position: sticky;
     top: 0;
     background-color: dimgray !important;
     font-family: 'Lato', sans-serif;
@@ -101,227 +154,20 @@ footer {
     padding-bottom: 10px
 
 }
+.navbar-toggler {
+    border: 0;
+}
+
 /*Class to space all the nav items a little to the left*/
 .side {
     margin-right: 100px;
 }
-/*A spacing box for the main page*/
-.spacingBox{
-    width: 100%;
-    height: 1000px;
-}
 
-
-/*The body of the 404 not found page*/
-.notFound {
-    width: 100%;
-    height: 100%;
-    background-color: black;
-}
-
-/*Wrapper that goes around the div for the 404 page*/
-.wrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-/*All headings with the glitch class have this*/
-.wrapper h1.glitch {
-    color: white;
-    font-family: sans-serif;
-    font-weight: 800;
-    position: relative;
-    font-size: 100px;
-    padding: 30px;
-}
-/*The heading inside wrapper with the glitch class gets this item before and after */
-.wrapper h1.glitch::before, .wrapper h1.glitch::after {
-    padding: 30px;
-    color: white;
-    content: "404";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: black;
-    overflow: hidden;
-    top: 0;
-}
-/*In front of the heading inside the wrapper with the glitch class before gets this
-    -it moves a copy to the left 3 px
-    - adds a red text shadow of 2px
-    - it adds the glitch animation 1 at a liner speed with no animation delay on load of the DOM
-        that goes on forever and will go back
-
-
-*/
-.wrapper h1.glitch::before {
-    left: 3px;
-    text-shadow: -2px 0 red;
-    animation-name: glitch-animation-1;
-    animation-duration: 2s;
-    animation-timing-function: linear;
-    animation-delay: 0s;
-    animation-iteration-count: infinite;
-    animation-direction: reverse-alternate;
-}
-/*In front of the heading inside the wrapper with the glitch class after gets this
-    -it moves a copy to the right 3 px
-    - adds a blue text shadow of 2px
-    - it adds the glitch animation 1 at a liner speed with no animation delay on load of the DOM
-        that goes on forever and will go back
-
-
-*/
-.wrapper h1.glitch::after {
-    left: -3px;
-    text-shadow: -2px 0 blue;
-    animation-name: glitch-animation-2;
-    animation-duration: 2s;
-    animation-timing-function: linear;
-    animation-delay: 0s;
-    animation-iteration-count: infinite;
-    animation-direction: reverse-alternate;
-}
-/*Animations for items to fade in on load of the DOM*/
 @keyframes fadeIn {
     from {
         opacity: 0;
     }
     to {
         opacity: 1;
-    }
-}
-/*Keyframs that move the rectangle around in animation 1*/
-@keyframes glitch-animation-1 {
-    0% {
-        clip: rect(88px, 350px, 13px, 30px);
-    }
-    5% {
-        clip: rect(110px, 350px, 70px, 30px);
-    }
-    10% {
-        clip: rect(48px, 350px, 6px, 30px);
-    }
-    15% {
-        clip: rect(3px, 350px, 104px, 30px);
-    }
-    20% {
-        clip: rect(144px, 350px, 21px, 30px);
-    }
-    25% {
-        clip: rect(47px, 350px, 135px, 30px);
-    }
-    30% {
-        clip: rect(92px, 350px, 7px, 30px);
-    }
-    35% {
-        clip: rect(54px, 350px, 119px, 30px);
-    }
-    40% {
-        clip: rect(112px, 350px, 108px, 30px);
-    }
-    45% {
-        clip: rect(69px, 350px, 123px, 30px);
-    }
-    50% {
-        clip: rect(68px, 350px, 88px, 30px);
-    }
-    55% {
-        clip: rect(14px, 350px, 119px, 30px);
-    }
-    60% {
-        clip: rect(39px, 350px, 24px, 30px);
-    }
-    65% {
-        clip: rect(14px, 350px, 35px, 30px);
-    }
-    70% {
-        clip: rect(125px, 350px, 38px, 30px);
-    }
-    75% {
-        clip: rect(75px, 350px, 139px, 30px);
-    }
-    80% {
-        clip: rect(5px, 350px, 38px, 30px);
-    }
-    85% {
-        clip: rect(94px, 350px, 77px, 30px);
-    }
-    90% {
-        clip: rect(21px, 350px, 62px, 30px);
-    }
-    95% {
-        clip: rect(42px, 350px, 67px, 30px);
-    }
-    100% {
-        clip: rect(78px, 350px, 88px, 30px);
-    }
-}
-/*Same thing as above but animation 2*/
-@keyframes glitch-animation-2 {
-    0% {
-        clip: rect(36px, 350px, 85px, 30px);
-    }
-    5% {
-        clip: rect(77px, 350px, 24px, 30px);
-    }
-    10% {
-        clip: rect(92px, 350px, 48px, 30px);
-    }
-    15% {
-        clip: rect(27px, 350px, 70px, 30px);
-    }
-    20% {
-        clip: rect(35px, 350px, 74px, 30px);
-    }
-    25% {
-        clip: rect(40px, 350px, 37px, 30px);
-    }
-    30% {
-        clip: rect(65px, 350px, 110px, 30px);
-    }
-    35% {
-        clip: rect(83px, 350px, 10px, 30px);
-    }
-    40% {
-        clip: rect(138px, 350px, 127px, 30px);
-    }
-    45% {
-        clip: rect(5px, 350px, 98px, 30px);
-    }
-    50% {
-        clip: rect(5px, 350px, 112px, 30px);
-    }
-    55% {
-        clip: rect(72px, 350px, 4px, 30px);
-    }
-    60% {
-        clip: rect(136px, 350px, 30px, 30px);
-    }
-    65% {
-        clip: rect(112px, 350px, 69px, 30px);
-    }
-    70% {
-        clip: rect(113px, 350px, 26px, 30px);
-    }
-    75% {
-        clip: rect(82px, 350px, 85px, 30px);
-    }
-    80% {
-        clip: rect(110px, 350px, 74px, 30px);
-    }
-    85% {
-        clip: rect(55px, 350px, 143px, 30px);
-    }
-    90% {
-        clip: rect(142px, 350px, 41px, 30px);
-    }
-    95% {
-        clip: rect(145px, 350px, 117px, 30px);
-    }
-    100% {
-        clip: rect(80px, 350px, 16px, 30px);
     }
 }

@@ -5,7 +5,6 @@ const path = require('path');
 var standardConfig = merge(common, {
   entry: {
     'home': './src/Home.js',
-    'pass': './src/Pass.js',
     'create': './src/Create.js',
     'about': './src/About.js',
     'errorNotFound': './src/ErrorNotFound.js',
