@@ -5,8 +5,8 @@ function approveDomain(opts, certs, cb) {
 
   opts.email = 'bytepassedu@gmail.com';
   opts.agreeTos = true;
-  opts.subject = 'bytepassedu.com';
-  opts.domains = [ opts.subject ,'*.bytepassedu.com' ];
+  opts.subject = 'omnibadge.com';
+  opts.domains = [ opts.subject ,'*.omnibadge.com' ];
   if (!opts.challenges) { opts.challenges = {}; }
   opts.challenges['dns-01'] = require('le-challenge-dns').create({});
   opts.account = { id: opts.email };

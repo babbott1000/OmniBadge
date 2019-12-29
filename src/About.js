@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import {Aboutus, ThePeople} from "./components/about/thePeople.jsx";
-import {TheProject} from "./components/about/theProject.jsx";
-import {NavBar} from "./components/navBar.jsx";
-import {Footer} from "./components/footer.jsx";
+import { NavBar } from "./components/NavBar.jsx";
+import { Footer } from "./components/Footer.jsx";
 
 
 class About extends React.Component {
@@ -15,19 +13,16 @@ class About extends React.Component {
             <div>
                 <NavBar/>
 
-                <div>
-                    <h1 className="aboutUsHeader"> About Us </h1>
-                </div>
-                <div>
+                <div className="about">
+                    <h1>About Us</h1>
                     <div>
-                        <h1 className="aboutUsSubHeaders"> The project </h1>
-                        <TheProject className="abouttext"/>
+                        <h2>The project</h2>
+                        <p>OmniBadge is a hall pass system that was founded at Stillwater Area High School, originally between several students, although the project only currently has one developer. The pass system includes an inexpensive physical pass for all students along with a scanner for each physical classroom, allowing for better safety of students while also being lightweight and easy to use. The project is aimed at creating a reliable system that easy to use, safe and solves many of the issues with other pass technologies.</p>
                     </div>
 
                     <div>
-                        <h1 className="aboutUsSubHeaders"> The people </h1>
-                        <ThePeople className="abouttext"/>
-
+                        <h2>The people</h2>
+                        <p>Ben is the main devloper behind the OmniBadge project. Ben manages everthing from server and web development to infrastructure managment to circuit board design. Ben attends Stillwater Area High school and is a graduate of 21'.  He thoroughly enjoys a good challenge and is also the captain of a <a href="https://frc2508.org">FIRST robotics team</a>.</p>
                     </div>
                 </div>
                 <div>

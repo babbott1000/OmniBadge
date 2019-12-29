@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from "react-dom";
 import { AdminTabs } from "./components/admin/adminTabs.jsx";
-import { NavBar } from "./components/navBar.jsx";
+import { NavBar } from "./components/NavBar.jsx";
 
 class Admin extends React.Component{
 

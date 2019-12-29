@@ -2,8 +2,8 @@
 
 import React from 'react';
 import ReactDOM from "react-dom";
-import { NavBar } from "./components/navBar.jsx";
-import { Footer } from "./components/footer.jsx";
+import { NavBar } from "./components/NavBar.jsx";
+import { Footer } from "./components/Footer.jsx";
 
 
 class Home extends React.Component{

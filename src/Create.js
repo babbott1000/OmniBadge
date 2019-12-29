@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from "react-dom";
 
 import {CreateAccount} from "./components/create/createAccount.jsx";
-import {Footer} from "./components/footer.jsx";
+import {Footer} from "./components/Footer.jsx";
 
 class Create extends React.Component{
 
