@@ -5,9 +5,7 @@
   "main": "cluster.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack --config webpack.prod.js",
-    "start": "node app.js",
-    "dev": "npx nodemon app.js -- --dev",
-    "prod": "npx nodemon",
+    "start": "nodemon --ext * app.js",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
@@ -45,12 +43,10 @@
     "nodemon": "^1.19.3",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^2.0.0",
-    "qrcode": "^1.4.2",
     "react": "^16.10.1",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-cookie": "^3.1.2",
     "react-dom": "^16.10.1",
-    "react-ga": "^2.7.0",
     "react-tabs": "^3.0.0",
     "sitemap": "^2.2.0",
     "snyk": "^1.258.2",

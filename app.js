@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const qrcode = require('qrcode');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const cookieSession = require('cookie-session');
@@ -16,6 +15,7 @@ const userSchema = require('./database/userSchema.js');
 const passSchema = require('./database/passSchema.js');
 const classSchema = require('./database/classSchema.js');
 const orgSchema = require('./database/orgSchema.js');
+const testObjects  = require('./testObjects.js');
 const crypto = require('crypto');
 const sm = require('sitemap');
 const User = mongoose.model('User', userSchema);
@@ -26,133 +26,23 @@ const { execSync } = require('child_process');
 
 var config;
 
-var devUsers = [
-	{
-		_id: 'lX34LX92Uf5iu67C',
-		id: 'pQBTAXjdmtcXKLtz',
-		firstName: 'Jack',
-		lastName: 'Baude',
-		email: 'fake@email.com',
-		teacher: false,
-		owner: false
-	},	{
-		_id: 'ncLh2I187KN0Kw1T',
-		id: 'YSuck3Mwy7VdUKSh',
-		firstName: 'Jack',
-		lastName: 'Baude',
-		email: 'fake@email.com',
-		teacher: false,
-		owner: false
-	},	{
-		_id: 'nEUsIjKkxPCjcFsI',
-		id: 'rgpquXhCmSTD99JG',
-		firstName: 'Jack',
-		lastName: 'Baude',
-		email: 'fake@email.com',
-		teacher: false,
-		owner: false
-	},
-]
-
-var devPasses = [
-	{
-		_id: 'lpXPjXsQ7yl74ui3',
-		startTime: new Date(869207000),
-		duration: 300,
-		expiration: new Date(869507000),
-		origin: 'woodBetweenTheWorlds',
-		teacher: 	{
-			_id: 'UMZl9OWQ8saQfKnD',
-			id: 'C9VDwIRoYvL8QlxT',
-			firstName: 'The',
-			lastName: 'Springer',
-			email: 'fake@email.com',
-			teacher: false,
-			owner: false
-		},
-		destination: 'wonderland',
-		return: false,
-		student: 	{
-			_id: 'nEUsIjKkxPCjcFsI',
-			id: 'rgpquXhCmSTD99JG',
-			firstName: 'Jack',
-			lastName: 'Baude',
-			email: 'fake@email.com',
-			teacher: false,
-			owner: false
-		}
-	},	{
-		_id: '1valhTtbAVYTVTWJ',
-		startTime: new Date(1321270000),
-		duration: 300,
-		expiration: new Date(1321570000),
-		origin: 'woodBetweenTheWorlds',
-		teacher: 	{
-			_id: 'UMZl9OWQ8saQfKnD',
-			id: 'C9VDwIRoYvL8QlxT',
-			firstName: 'The',
-			lastName: 'Springer',
-			email: 'fake@email.com',
-			teacher: false,
-			owner: false
-		},
-		destination: 'wonderland',
-		return: false,
-		student: 	{
-			_id: 'nEUsIjKkxPCjcFsI',
-			id: 'rgpquXhCmSTD99JG',
-			firstName: 'Jack',
-			lastName: 'Baude',
-			email: 'fake@email.com',
-			teacher: false,
-			owner: false
-		}
-	},	{
-		_id: 'xoxH5LAfWZuNmdX0',
-		startTime: new Date(1478543000),
-		duration: 300,
-		expiration: new Date(1478843000),
-		origin: 'woodBetweenTheWorlds',
-		teacher: 	{
-			_id: 'UMZl9OWQ8saQfKnD',
-			id: 'C9VDwIRoYvL8QlxT',
-			firstName: 'The',
-			lastName: 'Springer',
-			email: 'fake@email.com',
-			teacher: false,
-			owner: false
-		},
-		destination: 'wonderland',
-		return: false,
-		student: 	{
-			_id: 'nEUsIjKkxPCjcFsI',
-			id: 'rgpquXhCmSTD99JG',
-			firstName: 'Jack',
-			lastName: 'Baude',
-			email: 'fake@email.com',
-			teacher: false,
-			owner: false
-		}
-	},
-]
-
 program
   .version('0.1.0')
-  .option('-d, --dev', 'Don\'t load or connect to DB')
+  .option('-d, --dev', 'Use outside of production')
   .parse(process.argv);
 
 
 const port = process.env.PORT || 8080;
 
-if (!program.dev) {
+if(app.get('env') == 'production') {
 
 	// Connect to the database
-	mongoose.connect(config.database, { useNewUrlParser: true });
+	mongoose.connect('db.omnibadge.com', { useNewUrlParser: true });
 
-	// Check the connection
+	// Store the connection
 	var db = mongoose.connection;
 
-	// Log any connection errors
+	// Check for connection errors
 	db.on('error', console.error.bind(console, 'connection error:'));
 
 	// Set the secret key for making cookies/tokens
@@ -163,8 +53,10 @@ if (!program.dev) {
 // Set port number as a global variable in app
 app.set('port', port);
 
-app.enable('trust proxy')
+// Let the app know that it is operating behind cloudflare
+app.enable('trust proxy');
 
+// Create a sitemap for SEO
 var sitemap = sm.createSitemap ({
   hostname: 'http://flashpassedu.com',
   cacheTime: 600000,        // 600 sec - cache purge period
@@ -181,7 +73,7 @@ app.use(cookieSession({
 }));
 
 
-if (!program.dev) {
+if(app.get('env') == 'production') {
 	// Initialize passport
 	app.use(passport.initialize());
 	// Configure passport for persistant authentication
@@ -211,7 +103,7 @@ if (!program.dev) {
 
 	// Check if the user is logged in
 	function isUserAuthenticated(req, res, next) {
-	    if (req.user) {
+	    if(req.user) {
 	        next();
 	    } else {
 	        res.redirect('/');
@@ -220,7 +112,7 @@ if (!program.dev) {
 
 	// Check if the user is logged in
 	function isUserAdmin(req, res, next) {
-	    if (req.user) {
+	    if(req.user) {
 	    	User.find({ });
 	        next();
 	    } else {
@@ -238,7 +130,7 @@ app.use(bodyParser.json());
 // Use cookie parser to intercept cookies
 app.use(cookieParser());
 
-if (!program.dev) {
+if(app.get('env') == 'production') {
 	// Sanitize input
 	app.use(mongoSanitize());
 }
@@ -261,7 +153,7 @@ app.use(function(req, res, next) {
 // Serve static assets
 app.use(express.static(__dirname + '/client/static'));
 
-if (!program.dev) {
+if(app.get('env') == 'production') {
 	app.post('/deploy', (req, res) => {
 		
 		let hmac = crypto.createHmac('sha1', config.webhookSecret);
@@ -285,7 +177,7 @@ if (!program.dev) {
 
 app.get('/sitemap.xml', function(req, res) {
   sitemap.toXML( function (err, xml) {
-      if (err) {
+      if(err) {
         return res.status(500).end();
       }
       res.header('Content-Type', 'application/xml');
@@ -312,12 +204,12 @@ app.get('/newqr/:id', passport.authenticate('google'), function(req, res) {
 			} else {
 				// Serve the File
 				res.sendFile(__dirname  + '/client/qrcodes/' + req.params.id + '.svg', function (err) {
-					if (err) {
+					if(err) {
 						throw err;
 					} else {
 						// Delete the file
 						fs.unlink(__dirname + '/client/qrcodes/' + req.params.id + '.svg', function (err) {
-						  if (err) throw err;
+						  if(err) throw err;
 						});
 					}
 				});
@@ -327,12 +219,13 @@ app.get('/newqr/:id', passport.authenticate('google'), function(req, res) {
 });
 
 
-if (!program.dev) {
+if(app.get('env') == 'production') {
 	// Main authentication path
 	app.get('/auth', passport.authenticate('google', {
 	    scope: [ 'profile', 'email' ]
 	}));
 } else {
+	// If the app is being run in development then give them the admin page
 	app.get('/auth', function(req, res) {
 		res.redirect('/admin');
 	});
@@ -342,7 +235,7 @@ if (!program.dev) {
 app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
 	User.findOne({ email: req.user._json.email }, function(err, user) {
 		if(user) {
-			if (user.role == 'student') {
+			if(user.role == 'student') {
 				res.redirect('/');
 			} else {
 				res.redirect('/admin');
@@ -354,12 +247,12 @@ app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
 	})
 });
 
-if(!program.dev) {
+if(app.get('env') == 'production') {
 	app.get('/newPass/:room', isUserAuthenticated, function(req, res) {
 		/*let student = new User({ id: req.user.id, firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: "Student" });
 		let pass = new Pass({ startTime: new Date(), duration: 60000, expiration: new Date(new Date().getTime()+60000), origin: req.params.room, destination: "Bathroom", return: true, student: student });
 		pass.save(function (err) {
-		  if (err) throw err;
+		  if(err) throw err;
 		});
 		console.log(req.user);
 		*/res.send("Thank you " + req.user.name.givenName + ", your pass has been recorded");
@@ -376,19 +269,21 @@ if(!program.dev) {
 			res.json(passes);
 		})
 	});
+
 } else {
+
 	app.post('/students', (req, res) => {
-		res.json(devUsers);
+		res.json(testObjects.testUsers);
 	});
 
 	app.post('/passes', (req, res) => {
-		res.json(devPasses);
+		res.json(testObjects.testPasses);
 	});
 }
 
 
 
-if(!program.dev) {
+if(app.get('env') == 'production') {
 
 	app.get('/newOrg', isUserAuthenticated, (req, res) => {
 		res.send('TODO');
@@ -408,8 +303,8 @@ if(!program.dev) {
 		res.redirect('/');
 	});
 
-
 } else {
+
 	app.get('/admin', (req, res) => {
 		res.sendFile(__dirname + '/client/Admin/Admin.html');
 	});
@@ -436,7 +331,7 @@ app.get('/about', (req, res) => {
 });
 
 
-// Handle ErrorNotFound
+// Handle 404
 app.use(function(req, res) {
 	res.sendFile(__dirname + '/client/static/ErrorNotFound/ErrorNotFound.html');
 });
