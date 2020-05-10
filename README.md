@@ -4,12 +4,12 @@ A School Pass System
 
 ## Dependencies
 
-Before setup make sure that you have the latest LTS version of [Node](https://nodejs.org/en/download/)(and npm) installed
+Before setup ensure that you have the latest v12 LTS release(v12.x.x) of [Node](https://nodejs.org/en/download/)(and npm) installed
 
 ## Setup
 
-Clone the repository and run <code>npm install</code> in the root directory
+Clone the repo and run <code>npm install</code> in the root directory
 
 ## Running
 
-Run <code>npm start</code> in CMD, then navigate to <code>http://localhost:8080/</code> in your web browser of choice
+Open a shell, navigate to the root directory of the project, and run <code>npm start</code>.  Then, navigate to <code>http://localhost:8080/</code> in your web browser of choice
