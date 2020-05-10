@@ -26,10 +26,10 @@ var standardConfig = merge(dev, {
 
 var authConfig = merge(dev, {
   entry: {
-    'auth': './src/Admin.js'
+    'admin': './src/Admin.js'
   },
   output: {
-    path: path.resolve(__dirname, '../client/auth'),
+    path: path.resolve(__dirname, '../client/protected'),
     filename: '[name].min.js',
   }
 });

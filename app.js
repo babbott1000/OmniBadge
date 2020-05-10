@@ -1,43 +1,30 @@
-const fs = require('fs');
 const express = require('express');
 const app = express();
-const program = require('commander');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const mongoSanitize = require('express-mongo-sanitize');
+const sanitize = require('express-mongo-sanitize');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
-const path = require('path');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const userSchema = require('./db/schemas/userSchema.js');
 const passSchema = require('./db/schemas/passSchema.js');
 const classSchema = require('./db/schemas/classSchema.js');
 const orgSchema = require('./db/schemas/orgSchema.js');
 const testObjects  = require('./db/mock/mockdb.js');
-const crypto = require('crypto');
 const { SitemapStream, streamToPromise } = require('sitemap');
 const { createGzip } = require('zlib');
 const User = mongoose.model('User', userSchema);
 const Pass = mongoose.model('Pass', passSchema);
 const Class = mongoose.model('Class', classSchema);
 const Org = mongoose.model('Org', orgSchema);
-const { execSync } = require('child_process');
 const port = process.env.PORT || 8080;
 var config;
 let sitemap;
+var prod = app.get('env') == 'production';
 
-
-program
-  .version('0.1.0')
-  .option('-d, --dev', 'Use outside of production')
-  .parse(process.argv);
-
-
-
-if(app.get('env') == 'production') {
+if(prod) {
 
 	// Connect to the database
 	mongoose.connect('db.omnibadge.com', { useNewUrlParser: true });
@@ -59,6 +46,15 @@ app.set('port', port);
 // Let the app know that it is operating behind cloudflare
 app.enable('trust proxy');
 
+// Configure Body Parser
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// Use Body Parser to decode json
+app.use(bodyParser.json());
+
+// Sanitize input
+app.use(sanitize());
+
 // Configure the cookie parameters, maxAge is the expiration time and keys is what you use to sign cookies/tokens
 app.use(cookieSession({
 	maxAge: 60 * 60 * 1000,
@@ -67,7 +63,7 @@ app.use(cookieSession({
 }));
 
 
-if(app.get('env') == 'production') {
+if(prod) {
 	// Initialize passport
 	app.use(passport.initialize());
 	// Configure passport for persistant authentication
@@ -107,7 +103,7 @@ if(app.get('env') == 'production') {
 	// Check if the user is logged in
 	function isUserAdmin(req, res, next) {
 		if(req.user) {
-			User.find({ });
+			User.find({});
 			next();
 		} else {
 			res.redirect('/');
@@ -116,18 +112,8 @@ if(app.get('env') == 'production') {
 
 }
 
-// Configure Body Parser
-app.use(bodyParser.urlencoded({ extended: false }));
-// Use Body Parser to decode json
-app.use(bodyParser.json());
-
 // Use cookie parser to intercept cookies
 app.use(cookieParser());
-
-if(app.get('env') == 'production') {
-	// Sanitize input
-	app.use(mongoSanitize());
-}
 
 app.use(morgan(':date[iso]'));
 
@@ -184,36 +170,8 @@ app.get('/', function(req, res) {
 	res.sendFile(__dirname + "/client/static/Home/Home.html");
 });
 
-// Generate QR Code
-app.get('/newqr/:id', passport.authenticate('google'), function(req, res) {
-	// If the data is too long then end the request because long file names make the OS sad :(
-	if(req.params.id.length > 240) {
-		res.send('Too Long!');
-		res.end();
-	} else {
-		// Render the QR Code to a file
-		qrcode.toFile(__dirname + '/client/qrcodes/' + req.params.id + '.svg', req.params.id, function (err) {
-			if(err) {
-				throw err;
-			} else {
-				// Serve the File
-				res.sendFile(__dirname  + '/client/qrcodes/' + req.params.id + '.svg', function (err) {
-					if(err) {
-						throw err;
-					} else {
-						// Delete the file
-						fs.unlink(__dirname + '/client/qrcodes/' + req.params.id + '.svg', function (err) {
-						  if(err) throw err;
-						});
-					}
-				});
-			}
-		});
-	}
-});
 
-
-if(app.get('env') == 'production') {
+if(prod) {
 	// Main authentication path
 	app.get('/auth', passport.authenticate('google', {
 		scope: [ 'profile', 'email' ]
@@ -241,7 +199,7 @@ app.get('/auth/callback', passport.authenticate('google'), (req, res) => {
 	})
 });
 
-if(app.get('env') == 'production') {
+if(prod) {
 	app.get('/newPass/:room', isUserAuthenticated, function(req, res) {
 		/*let student = new User({ id: req.user.id, firstName: req.user.name.givenName, lastName: req.user.name.familyName, email: req.user._json.email, role: "Student" });
 		let pass = new Pass({ startTime: new Date(), duration: 60000, expiration: new Date(new Date().getTime()+60000), origin: req.params.room, destination: "Bathroom", return: true, student: student });
@@ -277,7 +235,7 @@ if(app.get('env') == 'production') {
 
 
 
-if(app.get('env') == 'production') {
+if(prod) {
 
 	app.get('/newOrg', isUserAuthenticated, (req, res) => {
 		res.send('TODO');
@@ -285,11 +243,11 @@ if(app.get('env') == 'production') {
 
 	// This is a protected path, as shown by the isUserAuthenticated function
 	app.get('/admin', isUserAuthenticated, (req, res) => {
-		res.sendFile(__dirname + '/client/Admin/Admin.html');
+		res.sendFile(__dirname + '/client/protected/admin.html');
 	});
 
 	app.get('/admin.min.js', isUserAuthenticated, (req, res) => {
-		res.sendFile(__dirname + '/client/Admin/admin.min.js');
+		res.sendFile(__dirname + '/client/protected/admin.min.js');
 	});
 
 	app.get('/logout', isUserAuthenticated, (req, res) => {
@@ -300,11 +258,11 @@ if(app.get('env') == 'production') {
 } else {
 
 	app.get('/admin', (req, res) => {
-		res.sendFile(__dirname + '/client/admin/admin.html');
+		res.sendFile(__dirname + '/client/protected/admin.html');
 	});
 
 	app.get('/admin.min.js', (req, res) => {
-		res.sendFile(__dirname + '/client/admin/admin.min.js');
+		res.sendFile(__dirname + '/client/protected/admin.min.js');
 	});
 
 	app.get('/logout', (req, res) => {
@@ -333,7 +291,7 @@ app.use(function(req, res) {
 module.exports = app;
 
 if(require.main === module) {
-	app.listen(port, function () {
-		console.log('Listening on port ' + port);
+	app.listen(app.get('port'), function () {
+		console.log('Listening on port ' + app.get('port'));
 	});
 }

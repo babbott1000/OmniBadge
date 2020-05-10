@@ -22,7 +22,7 @@ class About extends React.Component {
 
                     <div>
                         <h2>The people</h2>
-                        <p>Ben is the main devloper behind the OmniBadge project. Ben manages everthing from server and web development to infrastructure managment to circuit board design.  He thoroughly enjoys a good challenge and is also the captain of a <a href="https://frc2508.org">FIRST robotics team</a>.</p>
+                        <p>Ben is the main devloper behind the OmniBadge project. Ben manages everthing from and web development to infrastructure managment to circuit board design.  He thoroughly enjoys a good challenge and is also the current captain of SAHS's <a href="https://frc2508.org">FIRST robotics team</a>.</p>
                     </div>
                 </div>
                 <div>

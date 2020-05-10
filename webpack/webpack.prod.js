@@ -22,7 +22,7 @@ var authConfig = merge(common, {
   },
   mode: 'production',
   output: {
-    path: path.resolve(__dirname, '../client/auth'),
+    path: path.resolve(__dirname, '../client/protected'),
     filename: '[name].min.js',
   }
 });

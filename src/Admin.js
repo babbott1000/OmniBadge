@@ -9,8 +9,8 @@ class Admin extends React.Component{
         return(
             <div>
                 <div className="header">
-                    <img src="/logo.png" id="logo"></img>
-                    FlashPassEDU
+                    <img src="/assets/images/noimage.jpg" id="logo"></img>
+                    OmniBadge
                 </div>
                 <NavBar authed='true'/>
                 <AdminTabs/>
