@@ -7,26 +7,26 @@ var standardConfig = merge(common, {
     'home': './src/Home.js',
     'create': './src/Create.js',
     'about': './src/About.js',
-    'errorNotFound': './src/ErrorNotFound.js',
+    'errorNotFound': './src/404.js',
   },
   mode: 'production',
   output: {
-    path: path.resolve(__dirname, 'client/static/scripts'),
+    path: path.resolve(__dirname, '../client/static/scripts'),
     filename: '[name].min.js',
   }
 });
 
-var adminConfig = merge(common, {
+var authConfig = merge(common, {
   entry: {
     'admin': './src/Admin.js'
   },
   mode: 'production',
   output: {
-    path: path.resolve(__dirname, 'client/admin'),
+    path: path.resolve(__dirname, '../client/auth'),
     filename: '[name].min.js',
   }
 });
 
 module.exports = [
-    standardConfig, adminConfig,       
+    standardConfig, authConfig,       
 ];

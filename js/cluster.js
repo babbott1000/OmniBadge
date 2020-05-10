@@ -15,7 +15,7 @@ if (cluster.isMaster) {
 }
 
 cluster.on('exit', function(worker) {
-  console.log('Worker ' + worker.id + ' died :(');
+  console.log("\x1b[31m%s\x1b[0m", 'Worker ' + worker.id + ' died!');
   cluster.fork();
 });
 

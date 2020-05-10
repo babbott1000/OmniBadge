@@ -10,21 +10,25 @@ const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const path = require('path');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const userSchema = require('./database/userSchema.js');
-const passSchema = require('./database/passSchema.js');
-const classSchema = require('./database/classSchema.js');
-const orgSchema = require('./database/orgSchema.js');
-const testObjects  = require('./testObjects.js');
+const userSchema = require('./db/schemas/userSchema.js');
+const passSchema = require('./db/schemas/passSchema.js');
+const classSchema = require('./db/schemas/classSchema.js');
+const orgSchema = require('./db/schemas/orgSchema.js');
+const testObjects  = require('./db/mock/mockdb.js');
 const crypto = require('crypto');
-const sm = require('sitemap');
+const { SitemapStream, streamToPromise } = require('sitemap');
+const { createGzip } = require('zlib');
 const User = mongoose.model('User', userSchema);
 const Pass = mongoose.model('Pass', passSchema);
 const Class = mongoose.model('Class', classSchema);
 const Org = mongoose.model('Org', orgSchema);
 const { execSync } = require('child_process');
-
+const port = process.env.PORT || 8080;
 var config;
+let sitemap;
+
 
 program
   .version('0.1.0')
@@ -32,7 +36,6 @@ program
   .parse(process.argv);
 
 
-const port = process.env.PORT || 8080;
 
 if(app.get('env') == 'production') {
 
@@ -56,20 +59,11 @@ app.set('port', port);
 // Let the app know that it is operating behind cloudflare
 app.enable('trust proxy');
 
-// Create a sitemap for SEO
-var sitemap = sm.createSitemap ({
-  hostname: 'http://flashpassedu.com',
-  cacheTime: 600000,        // 600 sec - cache purge period
-  urls: [
-    { url: '/' },
-  ]
-});	
-
 // Configure the cookie parameters, maxAge is the expiration time and keys is what you use to sign cookies/tokens
 app.use(cookieSession({
-    maxAge: 60 * 60 * 1000,
-    keys: [ app.get('superSecret') ],
-    httpOnly: false,
+	maxAge: 60 * 60 * 1000,
+	keys: [ app.get('superSecret') ],
+	httpOnly: false,
 }));
 
 
@@ -82,42 +76,42 @@ if(app.get('env') == 'production') {
 
 	// Use this middleware function for OAuth
 	passport.use(new GoogleStrategy({
-	    clientID: config.oAuthClientID,
-	    clientSecret: config.oAuthClientSecret,
-	    callbackURL: config.oAuthCallbackURL
+		clientID: config.oAuthClientID,
+		clientSecret: config.oAuthClientSecret,
+		callbackURL: config.oAuthCallbackURL
 	  }, function(accessToken, refreshToken, profile, cb) {
-	    cb(null, profile);
+		cb(null, profile);
 	  }
 	));
 
 
 	// Encode the user
 	passport.serializeUser((user, done) => {
-	    done(null, user);
+		done(null, user);
 	});
 
 	// Decode the user
 	passport.deserializeUser((user, done) => {
-	    done(null, user);
+		done(null, user);
 	});
 
 	// Check if the user is logged in
 	function isUserAuthenticated(req, res, next) {
-	    if(req.user) {
-	        next();
-	    } else {
-	        res.redirect('/');
-	    }
+		if(req.user) {
+			next();
+		} else {
+			res.redirect('/');
+		}
 	}
 
 	// Check if the user is logged in
 	function isUserAdmin(req, res, next) {
-	    if(req.user) {
-	    	User.find({ });
-	        next();
-	    } else {
-	        res.redirect('/');
-	    }
+		if(req.user) {
+			User.find({ });
+			next();
+		} else {
+			res.redirect('/');
+		}
 	}
 
 }
@@ -153,39 +147,35 @@ app.use(function(req, res, next) {
 // Serve static assets
 app.use(express.static(__dirname + '/client/static'));
 
-if(app.get('env') == 'production') {
-	app.post('/deploy', (req, res) => {
-		
-		let hmac = crypto.createHmac('sha1', config.webhookSecret);
-		let result = hmac.update(JSON.stringify(req.body)).digest('hex');
-
-		if(('sha1=' + result) == req.get('x-hub-signature')) {
-			if(req.body.ref == 'refs/heads/deploy') {
-				console.log('\x1b[35m%s\x1b[0m', 'New Version Detected, Pulling');
-				execSync('start cmd /k \"' + __dirname + '\\restart.bat\"');
-			} else {
-				console.log('\x1b[36m%s\x1b[0m', 'Detected Push not on Deploy Branch');
-			}
-			res.status(200);
-			res.end();
-		} else {
-			res.status(404);
-			res.end();
-		}
-	});
-}
-
 app.get('/sitemap.xml', function(req, res) {
-  sitemap.toXML( function (err, xml) {
-      if(err) {
-        return res.status(500).end();
-      }
-      res.header('Content-Type', 'application/xml');
-      res.send(xml);
-  });
+	res.header('Content-Type', 'application/xml');
+	res.header('Content-Encoding', 'gzip');
+	// If it's cached, send it
+	if (sitemap) {
+	  res.send(sitemap);
+	  return;
+	}
+	try {
+		const smStream = new SitemapStream({ hostname: 'https://omnibadge.com/' })
+		const pipeline = smStream.pipe(createGzip())
+
+		smStream.write({ url: '/', priority: 0.8 })
+		smStream.write({ url: '/about',  priority: 0.3 })
+		smStream.write({ url: '/contact', priority: 0.3 })
+
+		smStream.end()
+	 
+		// Cache the response
+		streamToPromise(pipeline).then(sm => sitemap = sm)
+		// Write the response
+		pipeline.pipe(res).on('error', (e) => {throw e})
+	} catch (e) {
+		console.error(e)
+		res.status(500).end()
+	}
 });
 
-// Send main page
+// Send homepage
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + "/client/static/Home/Home.html");
 });
@@ -222,7 +212,7 @@ app.get('/newqr/:id', passport.authenticate('google'), function(req, res) {
 if(app.get('env') == 'production') {
 	// Main authentication path
 	app.get('/auth', passport.authenticate('google', {
-	    scope: [ 'profile', 'email' ]
+		scope: [ 'profile', 'email' ]
 	}));
 } else {
 	// If the app is being run in development then give them the admin page
@@ -306,11 +296,11 @@ if(app.get('env') == 'production') {
 } else {
 
 	app.get('/admin', (req, res) => {
-		res.sendFile(__dirname + '/client/Admin/Admin.html');
+		res.sendFile(__dirname + '/client/admin/admin.html');
 	});
 
 	app.get('/admin.min.js', (req, res) => {
-		res.sendFile(__dirname + '/client/Admin/admin.min.js');
+		res.sendFile(__dirname + '/client/admin/admin.min.js');
 	});
 
 	app.get('/logout', (req, res) => {
@@ -320,20 +310,18 @@ if(app.get('env') == 'production') {
 
 
 app.get('/create', (req, res) => {
-	res.sendFile(__dirname + '/client/static/Create/Create.html');
+	res.sendFile(__dirname + '/client/static/create/create.html');
 });
 
-app.get('/pass', (req, res) => {
-	res.sendFile(__dirname + '/client/static/Pass/Pass.html');
-});
 app.get('/about', (req, res) => {
-	res.sendFile(__dirname + '/client/static/About/About.html');
+	res.sendFile(__dirname + '/client/static/about/about.html');
 });
 
 
 // Handle 404
 app.use(function(req, res) {
-	res.sendFile(__dirname + '/client/static/ErrorNotFound/ErrorNotFound.html');
+	res.status(404);
+	res.sendFile(__dirname + '/client/static/404/404.html');
 });
 
 

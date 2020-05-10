@@ -16,24 +16,24 @@ var standardConfig = merge(dev, {
     'home': './src/Home.js',
     'create': './src/Create.js',
     'about': './src/About.js',
-    'errorNotFound': './src/ErrorNotFound.js'
+    '404': './src/404.js'
   },
   output: {
-    path: path.resolve(__dirname, 'client/static/scripts'),
+    path: path.resolve(__dirname, '../client/static/scripts'),
     filename: '[name].min.js',
   }
 });
 
-var adminConfig = merge(dev, {
+var authConfig = merge(dev, {
   entry: {
-    'admin': './src/Admin.js'
+    'auth': './src/Admin.js'
   },
   output: {
-    path: path.resolve(__dirname, 'client/admin'),
+    path: path.resolve(__dirname, '../client/auth'),
     filename: '[name].min.js',
   }
 });
 
 module.exports = [
-    standardConfig, adminConfig
+    standardConfig, authConfig
 ];

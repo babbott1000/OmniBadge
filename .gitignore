@@ -63,4 +63,8 @@ typings/
 # Ignore minified files
 *.min.*
 
+# Ignore Intellij stuff
 \.idea/
+
+# Ignore compile cache
+v8-compile-cache-0/

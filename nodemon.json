@@ -3,7 +3,7 @@
 		"client"
 	],
 	"events": {
-		"start": "npx webpack --config webpack.prod.js"
+		"start": "npx webpack --config webpack/webpack.dev.js"
 	},
 	"verbose": true,
 	"ext": "*"
