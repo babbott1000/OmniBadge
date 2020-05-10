@@ -67,7 +67,8 @@ a:hover {
 footer {
     text-align: center;
     color: white;
-    padding: 15px;
+    padding: 30px;
+    padding-bottom: 50px;
     background-color: #696969;
     box-shadow: 0 -5px 5px -5px #696969;
     opacity: 0;
@@ -109,7 +110,7 @@ footer p {
 
 .footerSpacer {
     width: 100%;
-    height: 60vh;
+    height: 65vh;
 }
 
 /* This is the entiery of the navbar*/
@@ -120,7 +121,8 @@ footer p {
     font-weight: lighter !important;
     -webkit-filter: drop-shadow(7px 7px 7px #eaeaea);
 }
-/*This is the brand on the navbar - what you see on the far left*/
+
+/*This is the brand on the navbar - what you see on the far left */
 .navbar .navbar-brand {
     font-size: 36px;
     font-weight: lighter;
@@ -128,37 +130,34 @@ footer p {
     margin-left: 15px;
     -webkit-filter: drop-shadow(7px 7px 7px rgba(0, 0, 0, 0.125));
 }
-/* When you hover on the brand the color changes*/
+/* When you hover on the brand the color changes */
 .navbar .navbar-brand:hover {
     color: #f0f0f0 !important;
 }
-/*all of the list eletmetns with a hyper link have this class - all the nav options*/
+/* All of the list elements with a hyper link have this class - all the nav options */
 .navbar .navbar-nav li a {
     color: #ffffff !important;
     font-size: 24px;
-    marign-right: 25px;
-    margin-left: 25px;
-    padding: 14px 16px;
-
+    padding: 0;
 }
-/*When you hover on the hyperlink in the navbar they get this addtional class*/
+/* When you hover on the hyperlink in the navbar they get this addtional class */
 .navbar .navbar-nav li a:hover {
     color: #f0f0f0 !important;
     border-bottom: 2px solid #ffffff;
-    padding-bottom: 10px
 
 }
-/*When ever the nav is active or on that page*/
+/* When ever the nav is active or on that page */
 .navbar .navbar-nav li a:active {
     border-bottom: 2px solid #ffffff;
     padding-bottom: 10px
 
 }
+
 .navbar-toggler {
-    border: 0;
+    border: none;
 }
 
-/*Class to space all the nav items a little to the left*/
+/* Class to space all the nav items a little to the left */
 .side {
     margin-right: 100px;
 }
