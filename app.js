@@ -147,6 +147,10 @@ app.use(function(req, res, next) {
 // Serve static assets
 app.use(express.static(__dirname + '/client/static'));
 
+app.get("/robots.txt", function(req, res) {
+	res.sendFile(__dirname + "/client/static/assets/txt/robots.txt")
+});
+
 app.get('/sitemap.xml', function(req, res) {
 	res.header('Content-Type', 'application/xml');
 	res.header('Content-Encoding', 'gzip');

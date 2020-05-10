@@ -6,7 +6,7 @@ export class Footer extends React.Component {
         return (
             <footer>
             	<p>
-	                OmniBadge™ <a href="mailto:omnibadge@omnibadge.com">Hello@OmniBadge.com</a>
+                    &copy;2019-{new Date().getFullYear()}&nbsp;OmniBadge<br></br>Contact&nbsp;<a href="mailto:omnibadge@omnibadge.com">hello@omnibadge.com</a>
             	</p>
             </footer>
         );

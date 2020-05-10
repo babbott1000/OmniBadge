@@ -1,23 +1,2 @@
-User-Agent: Googlebot
-Allow: /
-
-User-Agent: Googlebot-Mobile
-Allow: /
-
-User-Agent: Googlebot-Image
-Disallow: /
-
-User-Agent: Adsbot-Google
-Allow: /
-
-User-Agent: Slurp
-Allow: /
-
-User-Agent: msnbot
-Allow: /
-
-User-Agent: Bingbot
-Allow: /
-
 User-Agent: *
-Disallow: /
+Allow: /
