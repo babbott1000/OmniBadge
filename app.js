@@ -167,7 +167,7 @@ app.get('/sitemap.xml', function(req, res) {
 
 // Send homepage
 app.get('/', function(req, res) {
-	res.sendFile(__dirname + "/client/static/Home/Home.html");
+	res.sendFile(__dirname + "/client/static/home/home.html");
 });
 
 
