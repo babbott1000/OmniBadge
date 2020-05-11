@@ -33,20 +33,20 @@ resource "digitalocean_project_resources" "project" {
 resource "cloudflare_record" "vault_record" {
     zone_id = var.cloudflare_zone_id
     name    = "vault"
-    value   = digitalocean_droplet.vault[*].ipv4_address
+    value   = digitalocean_droplet.vault[0].ipv4_address
     type    = "A"
 }
 
 resource "cloudflare_record" "web_record" {
     zone_id = var.cloudflare_zone_id
     name    = "omnibadge.com"
-    value   = digitalocean_droplet.web[*].ipv4_address
+    value   = digitalocean_droplet.web[0].ipv4_address
     type    = "A"
 }
 
 resource "cloudflare_record" "mongo_record" {
     zone_id = var.cloudflare_zone_id
     name    = "mongo"
-    value   = digitalocean_droplet.mongo[*].ipv4_address
+    value   = digitalocean_droplet.mongo[0].ipv4_address
     type    = "A"
 }

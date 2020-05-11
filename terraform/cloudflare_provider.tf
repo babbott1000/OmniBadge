@@ -7,7 +7,7 @@ terraform {
 variable cloudflare_api_token {
 }
 
-variable zone_id {
+variable cloudflare_zone_id {
   type = string
 }
 
