@@ -38,7 +38,7 @@
     "jsonwebtoken": "^8.5.1",
     "le-challenge-dns": "^3.0.7",
     "le-store-fs": "^1.0.3",
-    "mongoose": "^5.11.7",
+    "mongoose": "^6.4.6",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.3",
     "passport": "^0.4.1",
